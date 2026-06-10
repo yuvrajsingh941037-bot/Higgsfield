@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MindFree — Overcome Anxiety & Depression Forever</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Raleway:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --purple: #8B5CF6;
+  --purple-dark: #7c3aed;
+  --purple-light: #C4B5FD;
+  --purple-pale: #ede9fe;
+  --green: #10B981;
+  --green-dark: #059669;
+  --green-light: #d1fae5;
+  --bg: #FAF5FF;
+  --bg-white: #ffffff;
+  --text: #4C1D95;
+  --text-body: #374151;
+  --text-muted: #6b7280;
+  --border: rgba(139,92,246,0.15);
+  --border-soft: rgba(139,92,246,0.1);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text-body);font-family:'Raleway',sans-serif;overflow-x:hidden;}
+h1,h2,h3,h4{font-family:'Lora',serif;color:var(--text);}
+
+/* Scroll reveal */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .6s cubic-bezier(.4,0,.2,1),transform .6s cubic-bezier(.4,0,.2,1);}
+.reveal.visible{opacity:1;transform:translateY(0);}
+.reveal-left{opacity:0;transform:translateX(-36px);transition:opacity .65s cubic-bezier(.4,0,.2,1),transform .65s cubic-bezier(.4,0,.2,1);}
+.reveal-left.visible{opacity:1;transform:translateX(0);}
+.reveal-right{opacity:0;transform:translateX(36px);transition:opacity .65s cubic-bezier(.4,0,.2,1),transform .65s cubic-bezier(.4,0,.2,1);}
+.reveal-right.visible{opacity:1;transform:translateX(0);}
+.d1{transition-delay:0ms;}.d2{transition-delay:80ms;}.d3{transition-delay:160ms;}.d4{transition-delay:240ms;}.d5{transition-delay:320ms;}
+@media(prefers-reduced-motion:reduce){.reveal,.reveal-left,.reveal-right{transition:none;opacity:1;transform:none;}}
+
+/* Navbar */
+.navbar{
+  position:fixed;top:12px;left:50%;transform:translateX(-50%);
+  z-index:200;width:calc(100% - 32px);max-width:1100px;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 24px;height:62px;border-radius:18px;
+  background:rgba(255,255,255,0.88);
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  border:1px solid var(--border);
+  box-shadow:0 4px 24px rgba(139,92,246,0.1);
+  transition:all .3s;
+}
+.nav-logo{font-family:'Lora',serif;font-weight:700;font-size:20px;color:var(--purple);letter-spacing:-0.3px;}
+.nav-logo span{color:var(--green);}
+.nav-links{display:flex;gap:24px;align-items:center;}
+.nav-links a{font-size:14px;font-weight:600;color:var(--text-muted);text-decoration:none;transition:color .2s;}
+.nav-links a:hover{color:var(--purple);}
+.nav-cta{background:var(--purple);color:#fff;border:none;padding:10px 22px;border-radius:10px;font-weight:700;font-size:13px;cursor:pointer;font-family:'Raleway',sans-serif;transition:all .2s;}
+.nav-cta:hover{background:var(--purple-dark);transform:translateY(-1px);box-shadow:0 6px 18px rgba(139,92,246,0.35);}
+.hamburger{display:none;flex-direction:column;gap:4px;cursor:pointer;background:none;border:none;padding:4px;}
+.hamburger span{width:22px;height:2px;background:var(--text);border-radius:2px;transition:all .3s;display:block;}
+
+/* Buttons */
+.btn-green{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--green);color:#fff;
+  padding:16px 36px;border-radius:14px;
+  font-family:'Raleway',sans-serif;font-weight:800;font-size:16px;
+  cursor:pointer;border:none;text-decoration:none;
+  transition:all .25s;box-shadow:0 8px 24px rgba(16,185,129,0.3);
+}
+.btn-green:hover{background:var(--green-dark);transform:translateY(-2px);box-shadow:0 14px 32px rgba(16,185,129,0.4);}
+.btn-outline{
+  display:inline-flex;align-items:center;gap:8px;
+  background:transparent;color:var(--purple);
+  padding:15px 30px;border-radius:14px;
+  font-family:'Raleway',sans-serif;font-weight:700;font-size:15px;
+  cursor:pointer;border:2px solid var(--purple);text-decoration:none;
+  transition:all .25s;
+}
+.btn-outline:hover{background:var(--purple);color:#fff;}
+
+/* Hero */
+.hero{
+  min-height:100vh;padding-top:100px;
+  display:flex;align-items:center;
+  position:relative;overflow:hidden;
+}
+.hero-orb-1{
+  position:absolute;width:700px;height:700px;border-radius:50%;
+  background:radial-gradient(circle,rgba(196,181,253,0.35) 0%,transparent 70%);
+  top:-200px;right:-150px;pointer-events:none;
+}
+.hero-orb-2{
+  position:absolute;width:500px;height:500px;border-radius:50%;
+  background:radial-gradient(circle,rgba(209,250,229,0.4) 0%,transparent 70%);
+  bottom:-150px;left:-100px;pointer-events:none;
+}
+.hero-inner{
+  max-width:1100px;margin:0 auto;padding:40px 24px 80px;
+  display:grid;grid-template-columns:1.1fr 1fr;gap:64px;align-items:center;
+  width:100%;position:relative;z-index:1;
+}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:7px;
+  background:var(--green-light);border:1px solid rgba(16,185,129,0.25);
+  color:var(--green-dark);padding:7px 16px;border-radius:24px;
+  font-size:12px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;
+  margin-bottom:22px;
+}
+.hero-title{
+  font-size:clamp(36px,4.5vw,56px);font-weight:700;
+  line-height:1.1;letter-spacing:-0.5px;color:var(--text);
+  margin-bottom:18px;
+}
+.hero-title em{color:var(--purple);font-style:italic;}
+.hero-title .green{color:var(--green-dark);}
+.hero-sub{
+  font-size:17px;line-height:1.75;color:var(--text-muted);
+  margin-bottom:32px;max-width:480px;
+  font-family:'Raleway',sans-serif;font-weight:500;
+}
+.hero-free-note{
+  display:flex;align-items:center;gap:8px;
+  font-size:13px;font-weight:700;color:var(--green-dark);
+  margin-top:16px;
+}
+.green-dot{width:8px;height:8px;border-radius:50%;background:var(--green);}
+
+/* Hero visual card */
+.hero-visual{display:flex;flex-direction:column;gap:14px;position:relative;}
+.mind-card{
+  background:#fff;border-radius:20px;padding:24px;
+  border:1px solid var(--border);
+  box-shadow:0 12px 40px rgba(139,92,246,0.1);
+}
+.mind-card-header{display:flex;align-items:center;gap:10px;margin-bottom:16px;}
+.mind-icon{
+  width:40px;height:40px;border-radius:12px;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.mind-icon-purple{background:var(--purple-pale);}
+.mind-icon-green{background:var(--green-light);}
+.mind-icon svg{width:20px;height:20px;}
+.mind-card-title{font-family:'Lora',serif;font-weight:600;font-size:15px;color:var(--text);}
+.mind-card-sub{font-size:12px;color:var(--text-muted);margin-top:2px;}
+.progress-label{display:flex;justify-content:space-between;font-size:12px;font-weight:700;color:var(--text-muted);margin-bottom:6px;}
+.progress-bar{height:8px;background:var(--purple-pale);border-radius:99px;overflow:hidden;}
+.progress-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--purple),var(--purple-light));transition:width 1s ease;}
+.progress-bar.green-bar .progress-fill{background:linear-gradient(90deg,var(--green),#6ee7b7);}
+.mood-row{display:flex;gap:8px;flex-wrap:wrap;}
+.mood-chip{
+  padding:7px 14px;border-radius:24px;font-size:12px;font-weight:700;
+  border:1.5px solid transparent;cursor:pointer;transition:all .2s;
+}
+.mood-chip.selected{background:var(--purple);color:#fff;border-color:var(--purple);}
+.mood-chip.soft{background:var(--purple-pale);color:var(--purple);border-color:var(--purple-pale);}
+.lesson-row{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--border-soft);}
+.lesson-row:last-child{border-bottom:none;padding-bottom:0;}
+.lesson-num{width:28px;height:28px;border-radius:8px;background:var(--purple-pale);color:var(--purple);font-weight:700;font-size:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.lesson-num.done{background:var(--green-light);color:var(--green-dark);}
+.lesson-text{font-size:13px;font-weight:600;color:var(--text-body);flex:1;}
+.lesson-tag{font-size:10px;font-weight:700;padding:3px 8px;border-radius:6px;text-transform:uppercase;letter-spacing:0.4px;}
+.tag-free{background:var(--green-light);color:var(--green-dark);}
+.tag-paid{background:var(--purple-pale);color:var(--purple);}
+.float-card{
+  position:absolute;background:#fff;border-radius:14px;
+  box-shadow:0 8px 28px rgba(139,92,246,0.15);
+  padding:12px 16px;border:1px solid var(--border);
+  font-size:12px;font-weight:700;color:var(--text);
+  display:flex;align-items:center;gap:8px;z-index:3;
+  animation:floaty 3.5s ease-in-out infinite;
+}
+.float-card-1{top:-16px;right:-20px;animation-delay:0s;}
+.float-card-2{bottom:-10px;left:-20px;animation-delay:1.2s;}
+@keyframes floaty{0%,100%{transform:translateY(0);}50%{transform:translateY(-7px);}}
+
+/* Stats bar */
+.stats-bar{background:#fff;border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:28px 0;}
+.stats-inner{max-width:1100px;margin:0 auto;padding:0 24px;display:grid;grid-template-columns:repeat(4,1fr);}
+.stat-item{text-align:center;padding:0 16px;border-right:1px solid var(--border);}
+.stat-item:last-child{border-right:none;}
+.stat-num{font-family:'Lora',serif;font-weight:700;font-size:30px;color:var(--purple);line-height:1;margin-bottom:4px;}
+.stat-num.green{color:var(--green-dark);}
+.stat-label{font-size:13px;color:var(--text-muted);font-weight:600;}
+
+/* Sections */
+.section{padding:100px 24px;}
+.section-inner{max-width:1100px;margin:0 auto;}
+.section-tag{font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--purple);margin-bottom:12px;}
+.section-tag.green-tag{color:var(--green-dark);}
+.section-title{font-size:clamp(28px,4vw,42px);font-weight:700;line-height:1.15;letter-spacing:-0.3px;margin-bottom:14px;}
+.section-sub{font-size:16px;line-height:1.75;color:var(--text-muted);max-width:500px;}
+
+/* Journey steps */
+.journey-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:56px;position:relative;}
+.journey-connector{position:absolute;top:36px;left:16.67%;right:16.67%;height:2px;background:linear-gradient(90deg,var(--purple-light),var(--green));opacity:0.3;}
+.journey-step{text-align:center;position:relative;}
+.journey-num{
+  width:72px;height:72px;border-radius:50%;margin:0 auto 20px;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Lora',serif;font-weight:700;font-size:26px;
+  position:relative;z-index:1;
+}
+.jn-1{background:linear-gradient(135deg,var(--purple-pale),#ddd6fe);color:var(--purple);}
+.jn-2{background:linear-gradient(135deg,#ddd6fe,var(--purple-light));color:var(--purple-dark);}
+.jn-3{background:linear-gradient(135deg,var(--green-light),#a7f3d0);color:var(--green-dark);}
+.journey-title{font-family:'Lora',serif;font-weight:600;font-size:18px;color:var(--text);margin-bottom:10px;}
+.journey-desc{font-size:14px;line-height:1.75;color:var(--text-muted);}
+
+/* Course cards */
+.courses-bg{background:#fff;}
+.course-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;margin-top:56px;}
+.course-card{
+  border:1px solid var(--border);border-radius:22px;overflow:hidden;
+  transition:all .3s;cursor:pointer;
+  background:var(--bg);
+}
+.course-card:hover{border-color:var(--purple);box-shadow:0 16px 48px rgba(139,92,246,0.12);transform:translateY(-5px);}
+.course-card.featured{border-color:var(--green);background:#fff;box-shadow:0 8px 32px rgba(16,185,129,0.1);}
+.course-card.featured:hover{border-color:var(--green-dark);box-shadow:0 20px 56px rgba(16,185,129,0.2);}
+.course-header{padding:28px 28px 0;}
+.course-badges{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;}
+.c-badge{font-size:11px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;padding:5px 12px;border-radius:8px;}
+.badge-free{background:var(--green-light);color:var(--green-dark);}
+.badge-num{background:var(--purple-pale);color:var(--purple);}
+.badge-popular{background:linear-gradient(135deg,var(--purple),var(--purple-dark));color:#fff;}
+.badge-new{background:linear-gradient(135deg,var(--green),var(--green-dark));color:#fff;}
+.course-title{font-family:'Lora',serif;font-weight:700;font-size:20px;color:var(--text);margin-bottom:10px;line-height:1.3;}
+.course-desc{font-size:14px;line-height:1.75;color:var(--text-muted);margin-bottom:18px;}
+.course-topics{display:flex;flex-direction:column;gap:8px;padding:0 28px;margin-bottom:18px;}
+.course-topic{display:flex;align-items:flex-start;gap:8px;font-size:13px;color:var(--text-body);}
+.topic-check{width:18px;height:18px;border-radius:5px;background:var(--green-light);border:1px solid rgba(16,185,129,0.25);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.topic-check svg{width:10px;height:10px;stroke:var(--green-dark);stroke-width:2.5;}
+.course-footer{padding:18px 28px 24px;display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--border-soft);margin-top:4px;}
+.course-price-free{font-family:'Lora',serif;font-weight:700;font-size:22px;color:var(--green-dark);}
+.course-price-paid{font-family:'Raleway',sans-serif;font-weight:800;font-size:22px;color:var(--purple);}
+.course-price-note{font-size:11px;color:var(--text-muted);font-weight:600;margin-top:2px;}
+.enroll-btn{
+  padding:10px 22px;border-radius:10px;font-weight:700;font-size:13px;
+  cursor:pointer;border:none;font-family:'Raleway',sans-serif;transition:all .2s;
+}
+.enroll-free{background:var(--green);color:#fff;}
+.enroll-free:hover{background:var(--green-dark);}
+.enroll-paid{background:var(--purple-pale);color:var(--purple);}
+.enroll-paid:hover{background:var(--purple);color:#fff;}
+.course-duration{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--text-muted);font-weight:600;}
+.course-duration svg{width:13px;height:13px;stroke:var(--text-muted);}
+
+/* Pricing overview */
+.pricing-note{
+  margin-top:32px;
+  background:linear-gradient(135deg,rgba(16,185,129,0.07),rgba(139,92,246,0.06));
+  border:1px solid rgba(16,185,129,0.2);
+  border-radius:18px;padding:24px 28px;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;
+}
+.pn-text{font-size:15px;font-weight:600;color:var(--text-body);line-height:1.5;}
+.pn-text strong{color:var(--green-dark);}
+
+/* Transformation section */
+.transformation-bg{background:linear-gradient(135deg,#faf5ff 0%,#f0fdf4 100%);}
+.transforms-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-top:56px;}
+.transform-card{
+  background:#fff;border:1px solid var(--border);border-radius:20px;padding:24px;
+  transition:all .3s;
+}
+.transform-card:hover{box-shadow:0 12px 36px rgba(139,92,246,0.1);transform:translateY(-3px);}
+.transform-before-after{
+  display:flex;align-items:center;gap:12px;margin-bottom:18px;
+}
+.t-label{font-size:11px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;padding:4px 10px;border-radius:6px;}
+.t-before{background:#fee2e2;color:#b91c1c;}
+.t-after{background:var(--green-light);color:var(--green-dark);}
+.t-arrow{color:var(--text-muted);}
+.transform-quote{font-family:'Lora',serif;font-style:italic;font-size:15px;line-height:1.7;color:var(--text-body);margin-bottom:16px;}
+.transform-author{display:flex;align-items:center;gap:10px;}
+.t-avatar{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Lora',serif;font-weight:700;font-size:14px;color:#fff;flex-shrink:0;}
+.t-name{font-weight:700;font-size:13px;color:var(--text);}
+.t-info{font-size:12px;color:var(--text-muted);}
+.stars-mini{display:flex;gap:2px;margin-top:2px;}
+.star-mini{width:12px;height:12px;fill:#f59e0b;}
+
+/* Instructor */
+.instructor-section{background:#fff;}
+.instructor-inner{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;}
+.instructor-visual{
+  background:linear-gradient(135deg,var(--purple-pale) 0%,#ddd6fe 100%);
+  border-radius:28px;height:420px;
+  display:flex;align-items:center;justify-content:center;
+  border:1px solid var(--border);position:relative;overflow:hidden;
+}
+.instructor-avatar-big{
+  width:180px;height:180px;border-radius:50%;
+  background:linear-gradient(135deg,var(--purple),var(--purple-dark));
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Lora',serif;font-weight:700;font-size:56px;color:#fff;
+  box-shadow:0 20px 60px rgba(139,92,246,0.35);
+  position:relative;z-index:2;
+}
+.instructor-ring{
+  position:absolute;width:280px;height:280px;border-radius:50%;
+  border:2px dashed rgba(139,92,246,0.2);
+  animation:ring-spin 20s linear infinite;
+}
+@keyframes ring-spin{to{transform:rotate(360deg);}}
+.instructor-ring-2{width:360px;height:360px;border-color:rgba(16,185,129,0.15);animation-direction:reverse;animation-duration:30s;}
+.cred-badge{
+  position:absolute;background:#fff;border-radius:12px;
+  box-shadow:0 8px 24px rgba(139,92,246,0.15);padding:10px 14px;
+  font-size:12px;font-weight:700;color:var(--text);
+  border:1px solid var(--border);
+  display:flex;align-items:center;gap:6px;
+  animation:floaty 3.5s ease-in-out infinite;
+}
+.cb-1{bottom:40px;right:-20px;}
+.cb-2{top:40px;left:-10px;animation-delay:1.5s;}
+.instructor-name{font-family:'Lora',serif;font-weight:700;font-size:28px;color:var(--text);margin-bottom:4px;}
+.instructor-title{font-size:14px;font-weight:600;color:var(--purple);margin-bottom:20px;}
+.instructor-bio{font-size:15px;line-height:1.8;color:var(--text-muted);margin-bottom:24px;}
+.credential-list{list-style:none;display:flex;flex-direction:column;gap:12px;}
+.credential-list li{display:flex;align-items:flex-start;gap:10px;font-size:14px;color:var(--text-body);line-height:1.5;}
+.cred-icon{width:22px;height:22px;border-radius:6px;background:var(--purple-pale);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.cred-icon svg{width:11px;height:11px;stroke:var(--purple);stroke-width:2.5;}
+
+/* FAQ */
+.faq-list{display:flex;flex-direction:column;gap:12px;margin-top:48px;max-width:720px;margin-left:auto;margin-right:auto;}
+.faq-item{
+  background:#fff;border:1px solid var(--border);border-radius:16px;
+  overflow:hidden;transition:all .25s;
+}
+.faq-item.open{border-color:var(--purple);box-shadow:0 8px 24px rgba(139,92,246,0.08);}
+.faq-q{
+  padding:18px 22px;display:flex;align-items:center;justify-content:space-between;
+  cursor:pointer;gap:12px;
+}
+.faq-q-text{font-family:'Lora',serif;font-weight:600;font-size:15px;color:var(--text);}
+.faq-icon{width:28px;height:28px;border-radius:8px;background:var(--purple-pale);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .25s;}
+.faq-item.open .faq-icon{background:var(--purple);transform:rotate(45deg);}
+.faq-icon svg{width:14px;height:14px;stroke:var(--purple);stroke-width:2.5;}
+.faq-item.open .faq-icon svg{stroke:#fff;}
+.faq-a{
+  padding:0 22px;max-height:0;overflow:hidden;
+  transition:max-height .35s ease,padding .25s ease;
+  font-size:14px;line-height:1.8;color:var(--text-muted);
+}
+.faq-item.open .faq-a{max-height:200px;padding:0 22px 18px;}
+
+/* CTA band */
+.cta-band{
+  background:linear-gradient(135deg,#6d28d9 0%,#8B5CF6 40%,#059669 100%);
+  padding:96px 24px;text-align:center;position:relative;overflow:hidden;
+}
+.cta-band::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 20% 60%,rgba(196,181,253,0.2) 0%,transparent 55%),
+             radial-gradient(ellipse at 80% 40%,rgba(167,243,208,0.15) 0%,transparent 55%);
+}
+.cta-band-inner{position:relative;z-index:1;max-width:660px;margin:0 auto;}
+.cta-big-badge{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,0.2);border:1px solid rgba(255,255,255,0.3);color:#fff;padding:7px 16px;border-radius:24px;font-size:12px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:24px;}
+.cta-title{font-family:'Lora',serif;font-weight:700;font-size:clamp(30px,4.5vw,46px);color:#fff;margin-bottom:16px;line-height:1.15;}
+.cta-sub{font-size:17px;color:rgba(255,255,255,0.8);line-height:1.7;margin-bottom:36px;font-weight:500;}
+.cta-actions{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
+.cta-btn-white{
+  display:inline-flex;align-items:center;gap:8px;
+  background:#fff;color:var(--purple-dark);
+  padding:16px 36px;border-radius:14px;
+  font-family:'Raleway',sans-serif;font-weight:800;font-size:16px;
+  cursor:pointer;border:none;text-decoration:none;
+  transition:all .25s;box-shadow:0 8px 28px rgba(0,0,0,0.2);
+}
+.cta-btn-white:hover{transform:translateY(-3px);box-shadow:0 14px 40px rgba(0,0,0,0.3);}
+.cta-note{font-size:13px;color:rgba(255,255,255,0.6);margin-top:18px;}
+
+/* Footer */
+.footer{background:#1e0a3c;color:rgba(255,255,255,0.55);padding:60px 24px 32px;}
+.footer-inner{max-width:1100px;margin:0 auto;}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:48px;}
+.footer-logo{font-family:'Lora',serif;font-weight:700;font-size:22px;color:#fff;margin-bottom:12px;}
+.footer-logo span{color:#86efac;}
+.footer-desc{font-size:13px;line-height:1.7;max-width:240px;}
+.footer-col-title{font-family:'Raleway',sans-serif;font-weight:700;font-size:12px;color:#fff;margin-bottom:16px;letter-spacing:0.8px;text-transform:uppercase;}
+.footer-links{list-style:none;display:flex;flex-direction:column;gap:10px;}
+.footer-links li a{font-size:13px;color:rgba(255,255,255,0.5);text-decoration:none;transition:color .2s;}
+.footer-links li a:hover{color:#fff;}
+.footer-bottom{border-top:1px solid rgba(255,255,255,0.1);padding-top:24px;display:flex;justify-content:space-between;align-items:center;font-size:12px;flex-wrap:wrap;gap:12px;}
+.footer-legal{display:flex;gap:20px;}
+.footer-legal a{color:rgba(255,255,255,0.4);text-decoration:none;font-size:12px;}
+.footer-legal a:hover{color:#fff;}
+
+/* Responsive */
+@media(max-width:1024px){
+  .course-grid{grid-template-columns:1fr;}
+  .footer-grid{grid-template-columns:1fr 1fr;}
+  .transforms-grid{grid-template-columns:1fr;}
+}
+@media(max-width:768px){
+  .hero-inner{grid-template-columns:1fr;text-align:center;gap:40px;}
+  .hero-sub{margin:0 auto 32px;}
+  .hero-free-note{justify-content:center;}
+  .float-card-1,.float-card-2{display:none;}
+  .stats-inner{grid-template-columns:repeat(2,1fr);}
+  .stat-item:nth-child(2){border-right:none;}
+  .stat-item:nth-child(3){border-right:1px solid var(--border);}
+  .journey-grid{grid-template-columns:1fr;gap:40px;}
+  .journey-connector{display:none;}
+  .instructor-inner{grid-template-columns:1fr;gap:40px;}
+  .instructor-visual{height:280px;}
+  .nav-links{display:none;}
+  .hamburger{display:flex;}
+  .footer-grid{grid-template-columns:1fr 1fr;}
+}
+@media(max-width:480px){
+  .footer-grid{grid-template-columns:1fr;}
+  .stats-inner{grid-template-columns:repeat(2,1fr);}
+  .section{padding:64px 20px;}
+  .cta-actions{flex-direction:column;align-items:center;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+  <div class="nav-logo">Mind<span>Free</span></div>
+  <div class="nav-links" id="nav-links">
+    <a href="#journey">How It Works</a>
+    <a href="#courses">Courses</a>
+    <a href="#instructor">Instructor</a>
+    <a href="#faq">FAQ</a>
+    <button class="nav-cta" onclick="document.getElementById('courses').scrollIntoView({behavior:'smooth'})">Start Free</button>
+  </div>
+  <button class="hamburger" onclick="toggleMenu()" aria-label="Menu" id="hamburger">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-orb-1"></div>
+  <div class="hero-orb-2"></div>
+  <div class="hero-inner">
+    <!-- Left: text -->
+    <div>
+      <div class="hero-badge reveal d1">
+        <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><circle cx="5" cy="5" r="5" fill="#059669"/></svg>
+        5,000+ lives transformed
+      </div>
+      <h1 class="hero-title reveal d2">
+        Break Free from<br><em>Anxiety &amp; Depression</em><br><span class="green">Forever.</span>
+      </h1>
+      <p class="hero-sub reveal d3">
+        Our science-backed class series guides you from overwhelmed and exhausted to calm, confident, and genuinely happy — at your own pace, from home.
+      </p>
+      <div style="display:flex;gap:14px;flex-wrap:wrap;margin-bottom:16px;" class="reveal d4">
+        <a href="#courses" class="btn-green">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 3l14 9-14 9V3z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Start Your Free Classes
+        </a>
+        <a href="#journey" class="btn-outline">See How It Works</a>
+      </div>
+      <div class="hero-free-note reveal d5">
+        <div class="green-dot"></div>
+        First 2 classes are completely free — no credit card needed
+      </div>
+    </div>
+
+    <!-- Right: visual -->
+    <div class="hero-visual reveal-right">
+      <div class="float-card float-card-1">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        Anxiety reduced by 78%
+      </div>
+      <div class="float-card float-card-2">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+        4.9 / 5 student rating
+      </div>
+
+      <!-- Progress card -->
+      <div class="mind-card" style="margin-bottom:0;">
+        <div class="mind-card-header">
+          <div class="mind-icon mind-icon-purple">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="1.8"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M9 12l2 2 4-4" stroke-linecap="round"/></svg>
+          </div>
+          <div>
+            <div class="mind-card-title">Your Progress</div>
+            <div class="mind-card-sub">Week 3 of 8 · On track</div>
+          </div>
+        </div>
+        <div style="margin-bottom:14px;">
+          <div class="progress-label"><span>Anxiety Tools</span><span style="color:var(--purple);">68%</span></div>
+          <div class="progress-bar"><div class="progress-fill" style="width:68%;"></div></div>
+        </div>
+        <div>
+          <div class="progress-label"><span>Inner Calm</span><span style="color:var(--green-dark);">45%</span></div>
+          <div class="progress-bar green-bar"><div class="progress-fill" style="width:45%;"></div></div>
+        </div>
+        <div style="margin-top:18px;padding-top:16px;border-top:1px solid var(--border-soft);">
+          <div style="font-size:12px;font-weight:700;color:var(--text-muted);margin-bottom:10px;">Today's Focus</div>
+          <div class="mood-row">
+            <div class="mood-chip selected">Breathwork</div>
+            <div class="mood-chip soft">Reframing</div>
+            <div class="mood-chip soft">Journaling</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Lesson list card -->
+      <div class="mind-card">
+        <div style="font-size:12px;font-weight:700;color:var(--text-muted);margin-bottom:12px;letter-spacing:0.5px;text-transform:uppercase;">Course Curriculum</div>
+        <div class="lesson-row">
+          <div class="lesson-num done">✓</div>
+          <div class="lesson-text">Understanding Anxiety</div>
+          <div class="lesson-tag tag-free">Free</div>
+        </div>
+        <div class="lesson-row">
+          <div class="lesson-num done">✓</div>
+          <div class="lesson-text">The Root of Depression</div>
+          <div class="lesson-tag tag-free">Free</div>
+        </div>
+        <div class="lesson-row">
+          <div class="lesson-num" style="background:var(--purple-pale);color:var(--purple);">3</div>
+          <div class="lesson-text">Rewiring Your Thoughts</div>
+          <div class="lesson-tag tag-paid">Class 3</div>
+        </div>
+        <div class="lesson-row">
+          <div class="lesson-num" style="opacity:.5;">4</div>
+          <div class="lesson-text">Body &amp; Mind Reset</div>
+          <div class="lesson-tag tag-paid" style="opacity:.5;">Class 4</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat-item reveal d1">
+      <div class="stat-num">5,000+</div>
+      <div class="stat-label">Lives Transformed</div>
+    </div>
+    <div class="stat-item reveal d2">
+      <div class="stat-num green">94%</div>
+      <div class="stat-label">Report Major Relief</div>
+    </div>
+    <div class="stat-item reveal d3">
+      <div class="stat-num">8</div>
+      <div class="stat-label">Powerful Classes</div>
+    </div>
+    <div class="stat-item reveal d4">
+      <div class="stat-num green">4.9</div>
+      <div class="stat-label">Average Rating</div>
+    </div>
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<section class="section" id="journey">
+  <div class="section-inner">
+    <div style="text-align:center;max-width:520px;margin:0 auto;">
+      <div class="section-tag reveal">Your Journey</div>
+      <h2 class="section-title reveal d2">From Struggling to Thriving<br>in 8 Classes</h2>
+      <p class="section-sub reveal d3" style="margin:0 auto;">No fluff, no generic advice. Every class is built on cognitive science and proven therapy techniques — taught in plain language.</p>
+    </div>
+    <div class="journey-grid">
+      <div class="journey-connector"></div>
+      <div class="journey-step reveal-scale d1">
+        <div class="journey-num jn-1">1</div>
+        <div class="journey-title">Understand the Root</div>
+        <div class="journey-desc">The first two free classes reveal exactly why anxiety and depression take hold — and why willpower alone never works. This changes everything.</div>
+      </div>
+      <div class="journey-step reveal-scale d2">
+        <div class="journey-num jn-2">2</div>
+        <div class="journey-title">Rewire Your Mind</div>
+        <div class="journey-desc">Classes 3–6 teach you the same techniques used by therapists: cognitive reframing, nervous system regulation, and breaking thought loops for good.</div>
+      </div>
+      <div class="journey-step reveal-scale d3">
+        <div class="journey-num jn-3">3</div>
+        <div class="journey-title">Build Your New Life</div>
+        <div class="journey-desc">The final classes lock in lasting change — building resilience, purpose, and the emotional tools to stay free from anxiety and depression forever.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COURSES -->
+<section class="section courses-bg" id="courses">
+  <div class="section-inner">
+    <div class="section-tag green-tag reveal">Course Lineup</div>
+    <h2 class="section-title reveal d2">Start Free. Go as Far as You Need.</h2>
+    <p class="section-sub reveal d3">The first two classes are yours at zero cost. Unlock the full series whenever you're ready.</p>
+
+    <div class="course-grid">
+
+      <!-- Class 1 - FREE -->
+      <div class="course-card featured reveal d1">
+        <div class="course-header">
+          <div class="course-badges">
+            <span class="c-badge badge-free">Free</span>
+            <span class="c-badge badge-num">Class 1 of 8</span>
+            <span class="c-badge badge-popular">Most Popular</span>
+          </div>
+          <div class="course-title">Understanding Anxiety — Why Your Brain Is Not Broken</div>
+          <div class="course-desc">Discover the science behind anxiety: why it happens, how it hijacks your body, and why it's not a character flaw. This first class removes the shame and hands you a real map.</div>
+        </div>
+        <div class="course-topics">
+          <div class="course-topic"><div class="topic-check"><svg viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12" stroke-linecap="round" stroke-linejoin="round"/></svg></div>The fight-or-flight loop explained simply</div>
+          <div class="course-topic"><div class="topic-check"><svg viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Why anxiety feeds on avoidance (and how to stop it)</div>
+          <div class="course-topic"><div class="topic-check"><svg viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Your personal anxiety trigger map exercise</div>
+        </div>
+        <div class="course-footer">
+          <div>
+            <div class="course-price-free">FREE</div>
+            <div class="course-duration"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2" stroke-linecap="round"/></svg>55 min · Video + Workbook</div>
+          </div>
+          <button class="enroll-btn enroll-free">Enroll Free</button>
+        </div>
+      </div>
+
+      <!-- Class 2 - FREE -->
+      <div class="course-card featured reveal d2">
+        <div class="course-header">
+          <div class="course-badges">
+            <span class="c-badge badge-free">Free</span>
+            <span class="c-badge badge-num">Class 2 of 8</span>
+            <span class="c-badge badge-new">New</span>
+          </div>
+          <div class="course-title">The Root of Depression — It's Not What You Think</div>
+          <div class="course-desc">Depression isn't sadness — it's a state your brain locks into. This class dismantles the myths and gives you a clear, hopeful picture of what recovery actually looks like.</div>
+        </div>
+        <div class="course-topics">
+          <div class="course-topic"><div class="topic-check"><svg viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12" stroke-linecap="round" stroke-linejoin="round"/></svg></div>The neuroscience of low mood in plain language</div>
+          <div class="course-topic"><div class="topic-check"><svg viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Behavioural activation — the fastest way to shift your state</div>
+          <div class="course-topic"><div class="topic-check"><svg viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12" stroke-linecap="round" stroke-linejoin="round"/></svg></div>How to speak to yourself differently from today</div>
+        </div>
+        <div class="course-footer">
+          <div>
+            <div class="course-price-free">FREE</div>
+            <div class="course-duration"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2" stroke-linecap="round"/></svg>60 min · Video + Workbook</div>
+          </div>
+          <button class="enroll-btn enroll-free">Enroll Free</button>
+        </div>
+      </div>
+
+      <!-- Class 3 -->
+      <div class="course-card reveal d1">
+        <div class="course-header">
+          <div class="course-badges"><span class="c-badge badge-num">Class 3 of 8</span></div>
+          <div class="course-title">Rewiring Your Thoughts — CBT for Real Life</div>
+          <div class="course-desc">Learn the core cognitive techniques used by therapists — distilled into simple daily practices you can start using the same day.</div>
+        </div>
+        <div class="course-topics">
+          <div class="course-topic"><div class="topic-check"><svg viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Identifying and challenging cognitive distortions</div>
+          <div class="course-topic"><div class="topic-check"><svg viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12" stroke-linecap="round" stroke-linejoin="round"/></svg></div>The 3-step thought record technique</div>
+        </div>
+        <div class="course-footer">
+          <div>
+            <div class="course-price-paid">$29</div>
+            <div class="course-duration"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2" stroke-linecap="round"/></svg>65 min · Video + Workbook</div>
+          </div>
+          <button class="enroll-btn enroll-paid">Enroll</button>
+        </div>
+      </div>
+
+      <!-- Class 4 -->
+      <div class="course-card reveal d2">
+        <div class="course-header">
+          <div class="course-badges"><span class="c-badge badge-num">Class 4 of 8</span></div>
+          <div class="course-title">Body & Mind Reset — Somatic Healing Techniques</div>
+          <div class="course-desc">Anxiety lives in the body, not just the mind. Learn breathwork, grounding, and nervous system reset techniques that calm you in minutes.</div>
+        </div>
+        <div class="course-topics">
+          <div class="course-topic"><div class="topic-check"><svg viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Physiological sigh and box breathing mastery</div>
+          <div class="course-topic"><div class="topic-check"><svg viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12" stroke-linecap="round" stroke-linejoin="round"/></svg></div>The vagus nerve reset practice</div>
+        </div>
+        <div class="course-footer">
+          <div>
+            <div class="course-price-paid">$29</div>
+            <div class="course-duration"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2" stroke-linecap="round"/></svg>70 min · Video + Audio</div>
+          </div>
+          <button class="enroll-btn enroll-paid">Enroll</button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Bundle note -->
+    <div class="pricing-note reveal" style="margin-top:24px;">
+      <div class="pn-text">
+        <strong>Complete 8-Class Series — $149</strong><br>
+        Get all 8 classes (including both free ones) for one simple price and save over 35%. Lifetime access, forever.
+      </div>
+      <a href="#" class="btn-green" style="padding:12px 26px;font-size:14px;white-space:nowrap;">Get Full Series</a>
+    </div>
+    <p style="text-align:center;font-size:13px;color:var(--text-muted);margin-top:16px;font-weight:600;" class="reveal">
+      Start with Class 1 completely free — no payment info required.
+    </p>
+  </div>
+</section>
+
+<!-- TRANSFORMATIONS -->
+<section class="section transformation-bg" id="results">
+  <div class="section-inner">
+    <div style="text-align:center;max-width:500px;margin:0 auto;">
+      <div class="section-tag reveal">Real Results</div>
+      <h2 class="section-title reveal d2">Students Who Got<br>Their Lives Back</h2>
+      <p class="section-sub reveal d3" style="margin:0 auto;">Not overnight. Not magically. Real people, real work, real transformation.</p>
+    </div>
+    <div class="transforms-grid">
+
+      <div class="transform-card reveal d1">
+        <div class="transform-before-after">
+          <span class="t-label t-before">Before</span>
+          <span class="t-arrow">→</span>
+          <span class="t-label t-after">After 6 weeks</span>
+        </div>
+        <p class="transform-quote">"I hadn't left my apartment in three days. Panic attacks every morning. I almost didn't start Class 1 because I thought nothing could help me. Six weeks later I presented at work without a single anxious thought."</p>
+        <div class="transform-author">
+          <div class="t-avatar" style="background:linear-gradient(135deg,#8b5cf6,#7c3aed);">A</div>
+          <div>
+            <div class="t-name">Aisha M., 29</div>
+            <div class="t-info">Marketing Manager</div>
+            <div class="stars-mini">
+              <svg class="star-mini" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+              <svg class="star-mini" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+              <svg class="star-mini" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+              <svg class="star-mini" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+              <svg class="star-mini" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="transform-card reveal d2">
+        <div class="transform-before-after">
+          <span class="t-label t-before">Before</span>
+          <span class="t-arrow">→</span>
+          <span class="t-label t-after">After 8 weeks</span>
+        </div>
+        <p class="transform-quote">"12 years of depression. Tried medication, tried therapy. Nothing stuck. These classes finally made me understand *why* I was stuck — and gave me the tools I actually use every day. I genuinely feel like a new person."</p>
+        <div class="transform-author">
+          <div class="t-avatar" style="background:linear-gradient(135deg,#10b981,#059669);">D</div>
+          <div>
+            <div class="t-name">David K., 41</div>
+            <div class="t-info">Teacher · Father of two</div>
+            <div class="stars-mini">
+              <svg class="star-mini" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+              <svg class="star-mini" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+              <svg class="star-mini" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+              <svg class="star-mini" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+              <svg class="star-mini" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- INSTRUCTOR -->
+<section class="section instructor-section" id="instructor">
+  <div class="section-inner">
+    <div class="instructor-inner">
+      <div class="reveal-left">
+        <div class="instructor-visual">
+          <div class="instructor-ring"></div>
+          <div class="instructor-ring instructor-ring-2"></div>
+          <div class="instructor-avatar-big">S</div>
+          <div class="cred-badge cb-1">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            Licensed Therapist
+          </div>
+          <div class="cred-badge cb-2">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            15+ Years Experience
+          </div>
+        </div>
+      </div>
+      <div class="reveal-right">
+        <div class="section-tag">Your Instructor</div>
+        <div class="instructor-name">Dr. Sarah Chen</div>
+        <div class="instructor-title">Licensed Clinical Psychologist · CBT &amp; Mindfulness Specialist</div>
+        <p class="instructor-bio">Dr. Chen has spent 15 years helping people reclaim their lives from anxiety and depression — first in clinical practice, now through online education that reaches people who can't access traditional therapy. Her approach blends evidence-based CBT, somatic techniques, and radical honesty about what actually works.</p>
+        <ul class="credential-list">
+          <li>
+            <div class="cred-icon"><svg viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            Ph.D. in Clinical Psychology, University of Cambridge
+          </li>
+          <li>
+            <div class="cred-icon"><svg viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            Certified in Cognitive Behavioural Therapy (CBT) &amp; EMDR
+          </li>
+          <li>
+            <div class="cred-icon"><svg viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            Former NHS mental health lead — 5,000+ patients treated
+          </li>
+          <li>
+            <div class="cred-icon"><svg viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            Author of <em>The Calm Brain</em>, published 2022
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section" id="faq" style="background:var(--bg);">
+  <div class="section-inner">
+    <div style="text-align:center;max-width:480px;margin:0 auto 0;">
+      <div class="section-tag reveal">FAQ</div>
+      <h2 class="section-title reveal d2">Questions We Hear A Lot</h2>
+    </div>
+    <div class="faq-list">
+
+      <div class="faq-item reveal">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span class="faq-q-text">Are the first two classes really free — no hidden fees?</span>
+          <div class="faq-icon"><svg viewBox="0 0 24 24" fill="none"><line x1="12" y1="5" x2="12" y2="19" stroke-linecap="round"/><line x1="5" y1="12" x2="19" y2="12" stroke-linecap="round"/></svg></div>
+        </div>
+        <div class="faq-a">Yes, completely free. Classes 1 and 2 require no credit card, no account — just your email. We believe everyone deserves access to the foundational tools. You only pay if you choose to continue from Class 3 onwards.</div>
+      </div>
+
+      <div class="faq-item reveal">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span class="faq-q-text">Can this replace therapy or medication?</span>
+          <div class="faq-icon"><svg viewBox="0 0 24 24" fill="none"><line x1="12" y1="5" x2="12" y2="19" stroke-linecap="round"/><line x1="5" y1="12" x2="19" y2="12" stroke-linecap="round"/></svg></div>
+        </div>
+        <div class="faq-a">These classes teach evidence-based techniques that are used in therapy — but they're not a clinical treatment and don't replace professional care. If you're in crisis or on medication, please speak to your doctor. Many students use MindFree alongside therapy and find it significantly accelerates their progress.</div>
+      </div>
+
+      <div class="faq-item reveal">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span class="faq-q-text">How long does each class take?</span>
+          <div class="faq-icon"><svg viewBox="0 0 24 24" fill="none"><line x1="12" y1="5" x2="12" y2="19" stroke-linecap="round"/><line x1="5" y1="12" x2="19" y2="12" stroke-linecap="round"/></svg></div>
+        </div>
+        <div class="faq-a">Each class is 45–75 minutes of video, plus a downloadable workbook you can complete at your own pace. Most students do one class per week, which gives time to practise the techniques before moving on. There's no timer — go at whatever pace feels right.</div>
+      </div>
+
+      <div class="faq-item reveal">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span class="faq-q-text">What if I've had anxiety or depression for years?</span>
+          <div class="faq-icon"><svg viewBox="0 0 24 24" fill="none"><line x1="12" y1="5" x2="12" y2="19" stroke-linecap="round"/><line x1="5" y1="12" x2="19" y2="12" stroke-linecap="round"/></svg></div>
+        </div>
+        <div class="faq-a">Many of our most dramatic transformations come from people who've struggled for 10, 15, even 20+ years. Long-term anxiety and depression are often deeply habitual patterns — and patterns can be changed. The length of time you've struggled doesn't predict how quickly you can shift. Start with Class 1 and see for yourself.</div>
+      </div>
+
+      <div class="faq-item reveal">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span class="faq-q-text">Is there a refund policy?</span>
+          <div class="faq-icon"><svg viewBox="0 0 24 24" fill="none"><line x1="12" y1="5" x2="12" y2="19" stroke-linecap="round"/><line x1="5" y1="12" x2="19" y2="12" stroke-linecap="round"/></svg></div>
+        </div>
+        <div class="faq-a">Yes — 30-day full refund, no questions asked, for any paid class or the full series. We're confident enough in the material that we take all the risk.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CTA BAND -->
+<section class="cta-band">
+  <div class="cta-band-inner">
+    <div class="cta-big-badge reveal">
+      <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><circle cx="5" cy="5" r="5" fill="#86efac"/></svg>
+      Start Today — It's Free
+    </div>
+    <h2 class="cta-title reveal d2">You Deserve to Feel<br>Okay Again.</h2>
+    <p class="cta-sub reveal d3">Five thousand people started exactly where you are. The first step costs nothing. Take it today.</p>
+    <div class="cta-actions reveal d4">
+      <a href="#courses" class="cta-btn-white">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 3l14 9-14 9V3z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Start Free — Class 1
+      </a>
+    </div>
+    <div class="cta-note reveal d5">No credit card · No commitment · Instant access</div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">Mind<span>Free</span></div>
+        <p class="footer-desc">Evidence-based classes to help you overcome anxiety and depression — and build a life you actually want to live.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Courses</div>
+        <ul class="footer-links">
+          <li><a href="#courses">Class 1 — Free</a></li>
+          <li><a href="#courses">Class 2 — Free</a></li>
+          <li><a href="#courses">Full 8-Class Series</a></li>
+          <li><a href="#courses">Starter Bundle</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">About</div>
+        <ul class="footer-links">
+          <li><a href="#instructor">Dr. Sarah Chen</a></li>
+          <li><a href="#">Our Approach</a></li>
+          <li><a href="#">Research &amp; Sources</a></li>
+          <li><a href="#">Press</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Support</div>
+        <ul class="footer-links">
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="#">Contact Us</a></li>
+          <li><a href="#">Refund Policy</a></li>
+          <li><a href="#">Crisis Resources</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 MindFree. All rights reserved.</span>
+      <div class="footer-legal">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Cookie Policy</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Scroll reveal
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1, rootMargin: '0px 0px -36px 0px' });
+document.querySelectorAll('.reveal,.reveal-left,.reveal-right,.reveal-scale').forEach(el => observer.observe(el));
+
+// Navbar scroll
+window.addEventListener('scroll', () => {
+  const nav = document.getElementById('navbar');
+  if(window.scrollY > 50){
+    nav.style.background = 'rgba(255,255,255,0.97)';
+    nav.style.boxShadow = '0 4px 28px rgba(139,92,246,0.12)';
+  } else {
+    nav.style.background = 'rgba(255,255,255,0.88)';
+    nav.style.boxShadow = '0 4px 24px rgba(139,92,246,0.1)';
+  }
+});
+
+// Mobile menu
+let menuOpen = false;
+function toggleMenu() {
+  const links = document.getElementById('nav-links');
+  menuOpen = !menuOpen;
+  if(menuOpen){
+    links.style.display = 'flex';
+    links.style.flexDirection = 'column';
+    links.style.position = 'absolute';
+    links.style.top = '70px';
+    links.style.left = '0';
+    links.style.right = '0';
+    links.style.background = 'rgba(255,255,255,0.98)';
+    links.style.padding = '20px 28px 24px';
+    links.style.borderTop = '1px solid rgba(139,92,246,0.1)';
+    links.style.borderRadius = '0 0 18px 18px';
+    links.style.gap = '18px';
+    links.style.zIndex = '99';
+    links.style.boxShadow = '0 10px 36px rgba(139,92,246,0.1)';
+  } else {
+    links.style.display = 'none';
+  }
+}
+
+// FAQ accordion
+function toggleFaq(el) {
+  const item = el.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+  if(!isOpen) item.classList.add('open');
+}
+
+// Enroll button feedback
+document.querySelectorAll('.enroll-btn').forEach(btn => {
+  btn.addEventListener('click', function() {
+    const original = this.textContent;
+    const isFree = this.classList.contains('enroll-free');
+    this.textContent = isFree ? 'Starting...' : 'Added!';
+    this.disabled = true;
+    setTimeout(() => { this.textContent = original; this.disabled = false; }, 2000);
+  });
+});
+
+// Animate progress bars on scroll
+const progressObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting){
+      e.target.querySelectorAll('.progress-fill').forEach(bar => {
+        const w = bar.style.width;
+        bar.style.width = '0';
+        setTimeout(() => { bar.style.width = w; }, 200);
+      });
+      progressObserver.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.5 });
+document.querySelectorAll('.mind-card').forEach(c => progressObserver.observe(c));
+</script>
+
+</body>
+</html>
