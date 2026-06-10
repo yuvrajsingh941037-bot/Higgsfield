@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PostPilot AI — Auto-Post Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root {
+    --bg: #050508;
+    --surface: rgba(255,255,255,0.04);
+    --surface-hover: rgba(255,255,255,0.07);
+    --border: rgba(255,255,255,0.08);
+    --border-bright: rgba(255,255,255,0.14);
+    --text: #f0f0f5;
+    --text-muted: rgba(240,240,245,0.5);
+    --accent: #7c5cfc;
+    --accent-glow: rgba(124,92,252,0.35);
+    --green: #22d3a5;
+    --red: #f87171;
+    --yellow: #fbbf24;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+  h1,h2,h3,h4,h5 { font-family: 'Space Grotesk', sans-serif; }
+
+  /* Background orbs */
+  .orb {
+    position: fixed; border-radius: 50%; filter: blur(80px); opacity: 0.12; pointer-events: none; z-index: 0;
+  }
+  .orb-1 { width: 500px; height: 500px; background: #7c5cfc; top: -150px; left: -150px; }
+  .orb-2 { width: 400px; height: 400px; background: #22d3a5; bottom: -100px; right: -100px; }
+
+  /* Glass card */
+  .glass {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 16px;
+  }
+  .glass:hover { border-color: var(--border-bright); }
+
+  /* Navbar */
+  .navbar {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(5,5,8,0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    height: 64px;
+    display: flex; align-items: center; padding: 0 32px;
+    justify-content: space-between;
+  }
+  .logo { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 18px; }
+  .logo span { color: var(--accent); }
+
+  /* Sidebar */
+  .sidebar {
+    position: fixed; left: 0; top: 64px; bottom: 0; width: 220px;
+    border-right: 1px solid var(--border);
+    padding: 24px 16px;
+    display: flex; flex-direction: column; gap: 4px; z-index: 50;
+  }
+  .nav-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 14px; border-radius: 10px;
+    color: var(--text-muted); font-size: 14px; font-weight: 500;
+    cursor: pointer; transition: all 0.2s;
+    border: 1px solid transparent;
+  }
+  .nav-item:hover, .nav-item.active {
+    background: var(--surface-hover);
+    color: var(--text);
+    border-color: var(--border);
+  }
+  .nav-item.active { color: var(--accent); }
+  .nav-icon { width: 16px; text-align: center; }
+
+  /* Main content */
+  .main { margin-left: 220px; padding-top: 64px; min-height: 100vh; position: relative; z-index: 1; }
+  .content { padding: 32px; max-width: 1100px; }
+
+  /* Section title */
+  .section-title { font-size: 22px; font-weight: 700; margin-bottom: 4px; }
+  .section-sub { color: var(--text-muted); font-size: 14px; margin-bottom: 28px; }
+
+  /* Input styles */
+  input, textarea, select {
+    width: 100%; background: rgba(255,255,255,0.05);
+    border: 1px solid var(--border);
+    border-radius: 10px; color: var(--text);
+    font-family: 'DM Sans', sans-serif; font-size: 14px;
+    padding: 12px 14px; outline: none;
+    transition: border-color 0.2s;
+  }
+  input:focus, textarea:focus, select:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-glow);
+  }
+  textarea { resize: vertical; min-height: 120px; }
+  select option { background: #1a1a2e; }
+  label { font-size: 13px; font-weight: 500; color: var(--text-muted); margin-bottom: 6px; display: block; }
+
+  /* Buttons */
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 11px 22px; border-radius: 10px; font-weight: 600;
+    font-size: 14px; cursor: pointer; transition: all 0.2s;
+    border: none; font-family: 'Space Grotesk', sans-serif;
+  }
+  .btn-primary {
+    background: var(--accent); color: #fff;
+    box-shadow: 0 0 20px var(--accent-glow);
+  }
+  .btn-primary:hover { background: #9b7fff; box-shadow: 0 0 30px var(--accent-glow); }
+  .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+  .btn-ghost {
+    background: var(--surface); color: var(--text);
+    border: 1px solid var(--border);
+  }
+  .btn-ghost:hover { border-color: var(--border-bright); background: var(--surface-hover); }
+  .btn-green {
+    background: var(--green); color: #000;
+  }
+  .btn-green:hover { background: #1fba93; }
+  .btn-green:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  /* Platform selector chips */
+  .platform-chip {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 8px 14px; border-radius: 24px;
+    border: 1px solid var(--border);
+    background: var(--surface); color: var(--text-muted);
+    font-size: 13px; font-weight: 500; cursor: pointer; transition: all 0.2s;
+    user-select: none;
+  }
+  .platform-chip.active {
+    border-color: var(--accent);
+    background: rgba(124,92,252,0.12);
+    color: var(--text);
+  }
+  .platform-chip:hover { border-color: var(--border-bright); color: var(--text); }
+
+  /* Caption output */
+  .caption-box {
+    position: relative;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px;
+    min-height: 160px;
+    font-size: 14px; line-height: 1.7;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+  .caption-box .copy-btn {
+    position: absolute; top: 10px; right: 10px;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 8px; padding: 5px 10px;
+    font-size: 12px; cursor: pointer; color: var(--text-muted);
+    transition: all 0.2s;
+  }
+  .caption-box .copy-btn:hover { color: var(--text); border-color: var(--border-bright); }
+
+  /* Account cards */
+  .account-card {
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px 16px; border-radius: 12px;
+    border: 1px solid var(--border); background: var(--surface);
+    cursor: pointer; transition: all 0.2s; user-select: none;
+  }
+  .account-card.selected {
+    border-color: var(--accent);
+    background: rgba(124,92,252,0.08);
+  }
+  .account-card:hover { border-color: var(--border-bright); }
+  .account-avatar {
+    width: 36px; height: 36px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; font-weight: 700;
+    flex-shrink: 0;
+  }
+  .check-badge {
+    margin-left: auto; width: 18px; height: 18px; border-radius: 50%;
+    border: 2px solid var(--border); background: transparent;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 10px; transition: all 0.2s;
+  }
+  .account-card.selected .check-badge {
+    background: var(--accent); border-color: var(--accent); color: white;
+  }
+
+  /* Status toast */
+  #toast {
+    position: fixed; bottom: 32px; right: 32px; z-index: 999;
+    padding: 14px 20px; border-radius: 12px; font-size: 14px; font-weight: 500;
+    backdrop-filter: blur(20px); border: 1px solid var(--border);
+    transform: translateY(80px); opacity: 0;
+    transition: all 0.35s cubic-bezier(0.34,1.56,0.64,1);
+    max-width: 340px; pointer-events: none;
+  }
+  #toast.show { transform: translateY(0); opacity: 1; }
+  #toast.success { background: rgba(34,211,165,0.15); border-color: rgba(34,211,165,0.3); color: var(--green); }
+  #toast.error { background: rgba(248,113,113,0.12); border-color: rgba(248,113,113,0.25); color: var(--red); }
+  #toast.info { background: rgba(124,92,252,0.12); border-color: rgba(124,92,252,0.3); color: #b39dfc; }
+
+  /* Spinner */
+  .spinner {
+    width: 16px; height: 16px; border-radius: 50%;
+    border: 2px solid rgba(255,255,255,0.2);
+    border-top-color: #fff;
+    animation: spin 0.7s linear infinite; display: inline-block;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* Cursor blink */
+  .cursor { display: inline-block; width: 2px; height: 1em; background: var(--accent); margin-left: 2px; animation: blink 0.9s step-end infinite; vertical-align: text-bottom; }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+  /* Stat cards */
+  .stat-card { text-align: center; padding: 20px 16px; }
+  .stat-num { font-size: 28px; font-weight: 700; font-family: 'Space Grotesk',sans-serif; color: var(--accent); }
+  .stat-label { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
+
+  /* Step badge */
+  .step-badge {
+    width: 28px; height: 28px; border-radius: 50%;
+    background: rgba(124,92,252,0.2); border: 1px solid var(--accent);
+    color: var(--accent); font-size: 12px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+
+  /* Config section */
+  .config-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media(max-width:700px){ .config-row{grid-template-columns:1fr;} .main{margin-left:0;} .sidebar{display:none;} }
+
+  /* Divider */
+  .divider { border: none; border-top: 1px solid var(--border); margin: 28px 0; }
+
+  /* Empty state */
+  .empty-state { text-align: center; padding: 40px 20px; color: var(--text-muted); }
+  .empty-icon { font-size: 36px; margin-bottom: 10px; }
+</style>
+</head>
+<body>
+
+<!-- Background orbs -->
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+
+<!-- Navbar -->
+<nav class="navbar">
+  <div class="logo">Post<span>Pilot</span> AI</div>
+  <div style="display:flex;align-items:center;gap:12px;">
+    <div id="nav-status" style="font-size:13px;color:var(--text-muted);">Checking Buffer...</div>
+    <div style="width:8px;height:8px;border-radius:50%;background:#555;" id="status-dot"></div>
+  </div>
+</nav>
+
+<!-- Sidebar -->
+<aside class="sidebar">
+  <div class="nav-item active" onclick="showTab('create')">
+    <span class="nav-icon">✦</span> Create & Post
+  </div>
+  <div class="nav-item" onclick="showTab('accounts')">
+    <span class="nav-icon">⬡</span> Accounts
+  </div>
+  <div class="nav-item" onclick="showTab('settings')">
+    <span class="nav-icon">⚙</span> Settings
+  </div>
+</aside>
+
+<!-- Main -->
+<main class="main">
+  <div class="content">
+
+    <!-- ═══════════════ CREATE & POST TAB ═══════════════ -->
+    <div id="tab-create">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px;">
+        <div class="step-badge">1</div>
+        <div>
+          <div class="section-title">Describe Your Reel</div>
+          <div class="section-sub">Tell the AI what your video is about</div>
+        </div>
+      </div>
+
+      <div class="glass" style="padding:24px;margin-bottom:20px;">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;">
+          <!-- Platform -->
+          <div>
+            <label>Platform</label>
+            <select id="platform-select">
+              <option value="instagram">Instagram Reels</option>
+              <option value="tiktok">TikTok</option>
+              <option value="linkedin">LinkedIn</option>
+              <option value="twitter">Twitter / X</option>
+              <option value="facebook">Facebook</option>
+              <option value="youtube">YouTube Shorts</option>
+            </select>
+          </div>
+          <!-- Tone -->
+          <div>
+            <label>Tone</label>
+            <select id="tone-select">
+              <option value="engaging">Engaging &amp; Energetic</option>
+              <option value="professional">Professional</option>
+              <option value="humorous">Humorous &amp; Witty</option>
+              <option value="inspirational">Inspirational</option>
+              <option value="educational">Educational</option>
+              <option value="casual">Casual &amp; Friendly</option>
+            </select>
+          </div>
+        </div>
+        <div style="margin-bottom:16px;">
+          <label>Niche / Industry</label>
+          <select id="niche-select">
+            <option value="general">General</option>
+            <option value="fitness">Fitness &amp; Health</option>
+            <option value="business">Business &amp; Entrepreneurship</option>
+            <option value="fashion">Fashion &amp; Beauty</option>
+            <option value="food">Food &amp; Cooking</option>
+            <option value="travel">Travel &amp; Lifestyle</option>
+            <option value="tech">Tech &amp; SaaS</option>
+            <option value="finance">Finance &amp; Investing</option>
+            <option value="music">Music &amp; Entertainment</option>
+            <option value="education">Education &amp; Coaching</option>
+          </select>
+        </div>
+        <div style="margin-bottom:16px;">
+          <label>Video Description</label>
+          <textarea id="description-input" placeholder="e.g. A 30-second reel showing a morning routine with cold shower, journaling, and protein shake prep. Fast cuts, upbeat energy."></textarea>
+        </div>
+        <div style="display:flex;justify-content:flex-end;">
+          <button class="btn btn-primary" id="generate-btn" onclick="generateCaption()">
+            <span id="gen-btn-icon">✦</span>
+            <span id="gen-btn-text">Generate Caption</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- STEP 2: Caption output -->
+      <div id="step2-section" style="display:none;">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px;">
+          <div class="step-badge">2</div>
+          <div>
+            <div class="section-title">AI-Generated Caption</div>
+            <div class="section-sub">Review and edit before posting</div>
+          </div>
+        </div>
+
+        <div class="glass" style="padding:24px;margin-bottom:20px;">
+          <div class="caption-box" id="caption-output">
+            <span id="caption-text"></span><span class="cursor" id="cursor" style="display:none;"></span>
+          </div>
+          <button class="copy-btn" style="margin-top:10px;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:7px 14px;font-size:13px;cursor:pointer;color:var(--text-muted);transition:all 0.2s;" onclick="copyCaption()">Copy</button>
+          <div style="margin-top:16px;">
+            <label>Edit Caption (optional)</label>
+            <textarea id="caption-edit" style="min-height:80px;" placeholder="Edit the caption here if needed..."></textarea>
+          </div>
+        </div>
+
+        <!-- STEP 3: Select accounts -->
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px;">
+          <div class="step-badge">3</div>
+          <div>
+            <div class="section-title">Select Accounts</div>
+            <div class="section-sub">Choose which accounts to post to</div>
+          </div>
+        </div>
+
+        <div class="glass" style="padding:24px;margin-bottom:20px;">
+          <div id="accounts-list" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;">
+            <div class="empty-state"><div class="empty-icon">⬡</div><p>No Buffer accounts found.<br>Add your token in Settings.</p></div>
+          </div>
+          <div style="margin-top:16px;">
+            <label>Video / Media URL <span style="color:var(--text-muted);font-weight:400;">(optional)</span></label>
+            <input type="url" id="media-url" placeholder="https://example.com/my-reel.mp4">
+          </div>
+        </div>
+
+        <!-- STEP 4: Post -->
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px;">
+          <div class="step-badge">4</div>
+          <div>
+            <div class="section-title">Post Now</div>
+            <div class="section-sub">Send to Buffer and go live instantly</div>
+          </div>
+        </div>
+
+        <div class="glass" style="padding:24px;margin-bottom:40px;">
+          <div id="post-summary" style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:20px;">
+            <div style="font-size:13px;color:var(--text-muted);">Selected accounts will appear here.</div>
+          </div>
+          <div style="display:flex;gap:12px;flex-wrap:wrap;">
+            <button class="btn btn-ghost" onclick="resetFlow()">← Start Over</button>
+            <button class="btn btn-green" id="post-btn" onclick="postNow()">
+              <span id="post-btn-icon">🚀</span>
+              <span id="post-btn-text">Post to Buffer</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════ ACCOUNTS TAB ═══════════════ -->
+    <div id="tab-accounts" style="display:none;">
+      <div class="section-title">Connected Accounts</div>
+      <div class="section-sub">Accounts from your Buffer workspace</div>
+      <div class="glass" style="padding:24px;">
+        <div id="accounts-full-list" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;">
+          <div class="empty-state"><div class="empty-icon">⬡</div><p>Loading accounts...</p></div>
+        </div>
+        <hr class="divider">
+        <p style="font-size:13px;color:var(--text-muted);">To add more accounts, connect them directly in your <a href="https://buffer.com" target="_blank" style="color:var(--accent);">Buffer dashboard</a>.</p>
+      </div>
+    </div>
+
+    <!-- ═══════════════ SETTINGS TAB ═══════════════ -->
+    <div id="tab-settings" style="display:none;">
+      <div class="section-title">Settings</div>
+      <div class="section-sub">Configure your API keys</div>
+
+      <div class="glass" style="padding:24px;margin-bottom:16px;">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px;">
+          <div style="width:36px;height:36px;border-radius:10px;background:rgba(124,92,252,0.15);border:1px solid rgba(124,92,252,0.3);display:flex;align-items:center;justify-content:center;font-size:16px;">✦</div>
+          <div><div style="font-weight:600;font-size:15px;">Anthropic (Claude AI)</div><div style="font-size:12px;color:var(--text-muted);">Powers caption generation</div></div>
+        </div>
+        <label>API Key</label>
+        <input type="password" id="anthropic-key-input" placeholder="sk-ant-...">
+        <p style="font-size:12px;color:var(--text-muted);margin-top:8px;">Get your key at <a href="https://console.anthropic.com" target="_blank" style="color:var(--accent);">console.anthropic.com</a></p>
+      </div>
+
+      <div class="glass" style="padding:24px;margin-bottom:16px;">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px;">
+          <div style="width:36px;height:36px;border-radius:10px;background:rgba(34,211,165,0.1);border:1px solid rgba(34,211,165,0.25);display:flex;align-items:center;justify-content:center;font-size:16px;">⬡</div>
+          <div><div style="font-weight:600;font-size:15px;">Buffer</div><div style="font-size:12px;color:var(--text-muted);">Auto-posts to your social accounts</div></div>
+        </div>
+        <label>Access Token</label>
+        <input type="password" id="buffer-token-input" placeholder="Your Buffer access token">
+        <p style="font-size:12px;color:var(--text-muted);margin-top:8px;">Find at <a href="https://buffer.com/developers/api" target="_blank" style="color:var(--accent);">buffer.com/developers/api</a></p>
+      </div>
+
+      <button class="btn btn-primary" onclick="saveSettings()">Save Settings</button>
+      <p style="font-size:12px;color:var(--text-muted);margin-top:12px;">Keys are stored in your browser's localStorage and sent to the server only when making API calls.</p>
+    </div>
+
+  </div>
+</main>
+
+<!-- Toast -->
+<div id="toast"></div>
+
+<script>
+// ─── State ────────────────────────────────────────────────────
+let selectedProfileIds = [];
+let bufferProfiles = [];
+let generatedCaption = "";
+let typewriterTimer = null;
+
+// ─── Init ─────────────────────────────────────────────────────
+document.addEventListener("DOMContentLoaded", () => {
+  loadSettings();
+  loadProfiles();
+});
+
+// ─── Tabs ─────────────────────────────────────────────────────
+function showTab(name) {
+  ["create","accounts","settings"].forEach(t => {
+    document.getElementById("tab-"+t).style.display = t === name ? "" : "none";
+  });
+  document.querySelectorAll(".nav-item").forEach((el,i) => {
+    el.classList.toggle("active", ["create","accounts","settings"][i] === name);
+  });
+  if (name === "accounts") renderFullAccounts();
+}
+
+// ─── Settings ─────────────────────────────────────────────────
+function loadSettings() {
+  const ak = localStorage.getItem("anthropic_key") || "";
+  const bt = localStorage.getItem("buffer_token") || "";
+  if (ak) document.getElementById("anthropic-key-input").value = ak;
+  if (bt) document.getElementById("buffer-token-input").value = bt;
+}
+function saveSettings() {
+  const ak = document.getElementById("anthropic-key-input").value.trim();
+  const bt = document.getElementById("buffer-token-input").value.trim();
+  localStorage.setItem("anthropic_key", ak);
+  localStorage.setItem("buffer_token", bt);
+  toast("Settings saved!", "success");
+  loadProfiles();
+}
+
+// ─── Buffer Profiles ──────────────────────────────────────────
+async function loadProfiles() {
+  const nav = document.getElementById("nav-status");
+  const dot = document.getElementById("status-dot");
+  try {
+    const res = await fetch("/api/profiles");
+    const data = await res.json();
+    if (Array.isArray(data) && data.length > 0) {
+      bufferProfiles = data;
+      nav.textContent = `${data.length} account${data.length>1?"s":""} connected`;
+      dot.style.background = "#22d3a5";
+    } else {
+      nav.textContent = "No Buffer accounts";
+      dot.style.background = "#f87171";
+    }
+  } catch {
+    nav.textContent = "Buffer not configured";
+    dot.style.background = "#f59e0b";
+  }
+  renderAccountPicker();
+}
+
+function platformColor(svc) {
+  const map = { instagram:"#e1306c", facebook:"#1877f2", twitter:"#1da1f2", linkedin:"#0077b5", tiktok:"#69c9d0", pinterest:"#e60023", youtube:"#ff0000" };
+  return map[svc] || "#7c5cfc";
+}
+function platformEmoji(svc) {
+  const map = { instagram:"📸", facebook:"📘", twitter:"🐦", linkedin:"💼", tiktok:"🎵", pinterest:"📌", youtube:"▶️" };
+  return map[svc] || "🌐";
+}
+
+function renderAccountPicker() {
+  const el = document.getElementById("accounts-list");
+  if (!bufferProfiles.length) {
+    el.innerHTML = `<div class="empty-state"><div class="empty-icon">⬡</div><p>No Buffer accounts.<br>Add token in Settings.</p></div>`;
+    return;
+  }
+  el.innerHTML = bufferProfiles.map(p => `
+    <div class="account-card" id="card-${p.id}" onclick="toggleAccount('${p.id}')">
+      <div class="account-avatar" style="background:${platformColor(p.service)+'22'};color:${platformColor(p.service)}">
+        ${platformEmoji(p.service)}
+      </div>
+      <div style="flex:1;min-width:0;">
+        <div style="font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${p.formatted_username || p.service}</div>
+        <div style="font-size:11px;color:var(--text-muted);text-transform:capitalize;">${p.service}</div>
+      </div>
+      <div class="check-badge" id="badge-${p.id}">✓</div>
+    </div>
+  `).join("");
+}
+
+function renderFullAccounts() {
+  const el = document.getElementById("accounts-full-list");
+  if (!bufferProfiles.length) {
+    el.innerHTML = `<div class="empty-state"><div class="empty-icon">⬡</div><p>No accounts. Add your Buffer token in Settings.</p></div>`;
+    return;
+  }
+  el.innerHTML = bufferProfiles.map(p => `
+    <div class="account-card" style="cursor:default;">
+      <div class="account-avatar" style="background:${platformColor(p.service)+'22'};color:${platformColor(p.service)}">
+        ${platformEmoji(p.service)}
+      </div>
+      <div>
+        <div style="font-size:13px;font-weight:600;">${p.formatted_username || p.service_username || p.service}</div>
+        <div style="font-size:11px;color:var(--text-muted);text-transform:capitalize;">${p.service}</div>
+      </div>
+    </div>
+  `).join("");
+}
+
+function toggleAccount(id) {
+  const idx = selectedProfileIds.indexOf(id);
+  if (idx > -1) {
+    selectedProfileIds.splice(idx, 1);
+  } else {
+    selectedProfileIds.push(id);
+  }
+  document.querySelectorAll(".account-card").forEach(el => {
+    const pid = el.id.replace("card-", "");
+    el.classList.toggle("selected", selectedProfileIds.includes(pid));
+  });
+  updatePostSummary();
+}
+
+function updatePostSummary() {
+  const el = document.getElementById("post-summary");
+  if (!selectedProfileIds.length) {
+    el.innerHTML = `<div style="font-size:13px;color:var(--text-muted);">Select accounts above.</div>`;
+    return;
+  }
+  const selected = bufferProfiles.filter(p => selectedProfileIds.includes(p.id));
+  el.innerHTML = selected.map(p => `
+    <div style="display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:20px;background:rgba(124,92,252,0.12);border:1px solid rgba(124,92,252,0.3);font-size:13px;">
+      ${platformEmoji(p.service)} ${p.formatted_username || p.service}
+    </div>
+  `).join("");
+}
+
+// ─── Caption Generation ───────────────────────────────────────
+async function generateCaption() {
+  const description = document.getElementById("description-input").value.trim();
+  if (!description) { toast("Enter a video description first", "error"); return; }
+
+  const platform = document.getElementById("platform-select").value;
+  const tone = document.getElementById("tone-select").value;
+  const niche = document.getElementById("niche-select").value;
+  const anthropicKey = localStorage.getItem("anthropic_key") || "";
+
+  if (!anthropicKey) { toast("Add your Anthropic API key in Settings", "error"); showTab("settings"); return; }
+
+  const btn = document.getElementById("generate-btn");
+  document.getElementById("gen-btn-icon").innerHTML = `<span class="spinner"></span>`;
+  document.getElementById("gen-btn-text").textContent = "Generating...";
+  btn.disabled = true;
+
+  try {
+    const res = await fetch("/api/generate", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "X-Anthropic-Key": anthropicKey },
+      body: JSON.stringify({ description, platform, tone, niche }),
+    });
+    const data = await res.json();
+    if (data.error) throw new Error(data.error);
+
+    generatedCaption = data.caption;
+    document.getElementById("caption-edit").value = generatedCaption;
+    showStep2(generatedCaption);
+    toast("Caption generated!", "success");
+  } catch (err) {
+    toast("Error: " + err.message, "error");
+  } finally {
+    document.getElementById("gen-btn-icon").textContent = "✦";
+    document.getElementById("gen-btn-text").textContent = "Regenerate";
+    btn.disabled = false;
+  }
+}
+
+function showStep2(caption) {
+  document.getElementById("step2-section").style.display = "";
+  const textEl = document.getElementById("caption-text");
+  const cursor = document.getElementById("cursor");
+  cursor.style.display = "inline-block";
+  textEl.textContent = "";
+
+  if (typewriterTimer) clearInterval(typewriterTimer);
+  let i = 0;
+  const speed = Math.max(12, Math.min(30, Math.round(5000 / caption.length)));
+  typewriterTimer = setInterval(() => {
+    if (i < caption.length) {
+      textEl.textContent += caption[i];
+      i++;
+    } else {
+      clearInterval(typewriterTimer);
+      cursor.style.display = "none";
+    }
+  }, speed);
+
+  setTimeout(() => {
+    document.getElementById("step2-section").scrollIntoView({ behavior: "smooth", block: "start" });
+  }, 300);
+}
+
+function copyCaption() {
+  const text = document.getElementById("caption-edit").value || generatedCaption;
+  navigator.clipboard.writeText(text).then(() => toast("Copied to clipboard", "success"));
+}
+
+// ─── Posting ──────────────────────────────────────────────────
+async function postNow() {
+  const caption = document.getElementById("caption-edit").value.trim() || generatedCaption;
+  if (!caption) { toast("No caption to post", "error"); return; }
+  if (!selectedProfileIds.length) { toast("Select at least one account", "error"); return; }
+
+  const bufferToken = localStorage.getItem("buffer_token") || "";
+  if (!bufferToken) { toast("Add your Buffer token in Settings", "error"); showTab("settings"); return; }
+
+  const mediaUrl = document.getElementById("media-url").value.trim();
+  const btn = document.getElementById("post-btn");
+  document.getElementById("post-btn-icon").innerHTML = `<span class="spinner" style="border-top-color:#000;"></span>`;
+  document.getElementById("post-btn-text").textContent = "Posting...";
+  btn.disabled = true;
+
+  try {
+    const res = await fetch("/api/post", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "X-Buffer-Token": bufferToken },
+      body: JSON.stringify({ caption, profile_ids: selectedProfileIds, media_url: mediaUrl }),
+    });
+    const data = await res.json();
+    if (data.error) throw new Error(data.error);
+
+    toast(`🚀 Posted to ${selectedProfileIds.length} account${selectedProfileIds.length>1?"s":""}!`, "success");
+    setTimeout(resetFlow, 2500);
+  } catch (err) {
+    toast("Post failed: " + err.message, "error");
+  } finally {
+    document.getElementById("post-btn-icon").textContent = "🚀";
+    document.getElementById("post-btn-text").textContent = "Post to Buffer";
+    btn.disabled = false;
+  }
+}
+
+function resetFlow() {
+  document.getElementById("step2-section").style.display = "none";
+  document.getElementById("description-input").value = "";
+  document.getElementById("caption-edit").value = "";
+  document.getElementById("media-url").value = "";
+  document.getElementById("gen-btn-text").textContent = "Generate Caption";
+  selectedProfileIds = [];
+  renderAccountPicker();
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+// ─── Toast ────────────────────────────────────────────────────
+let toastTimer;
+function toast(msg, type = "info") {
+  const el = document.getElementById("toast");
+  el.textContent = msg;
+  el.className = `show ${type}`;
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => { el.className = ""; }, 3500);
+}
+
+// Pass API keys as request headers so the server can pick them up
+const _originalFetch = window.fetch;
+window.fetch = function(url, opts = {}) {
+  if (typeof url === "string" && url.startsWith("/api/")) {
+    const ak = localStorage.getItem("anthropic_key") || "";
+    const bt = localStorage.getItem("buffer_token") || "";
+    opts.headers = opts.headers || {};
+    if (ak) opts.headers["X-Anthropic-Key"] = ak;
+    if (bt) opts.headers["X-Buffer-Token"] = bt;
+  }
+  return _originalFetch(url, opts);
+};
+</script>
+
+</body>
+</html>
