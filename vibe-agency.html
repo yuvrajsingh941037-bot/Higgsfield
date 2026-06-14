@@ -1,0 +1,1102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VIBE. — India's Premier Social Media Agency</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#07070d;
+  --bg2:#0d0d1a;
+  --surface:rgba(255,255,255,0.04);
+  --surface2:rgba(255,255,255,0.07);
+  --border:rgba(255,255,255,0.08);
+  --border2:rgba(255,255,255,0.14);
+  --text:#f0f0fa;
+  --muted:rgba(240,240,250,0.45);
+  --muted2:rgba(240,240,250,0.65);
+  --pink:#EC4899;
+  --pink2:#f472b6;
+  --purple:#8B5CF6;
+  --cyan:#06B6D4;
+  --cyan2:#22d3ee;
+  --yellow:#FBBF24;
+  --grad:linear-gradient(135deg,#EC4899,#8B5CF6,#06B6D4);
+  --grad2:linear-gradient(135deg,#8B5CF6,#EC4899);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;overflow-x:hidden;cursor:none;}
+h1,h2,h3,h4,h5{font-family:'Space Grotesk',sans-serif;}
+
+/* ── Custom cursor ─── */
+#cursor{position:fixed;width:12px;height:12px;background:#fff;border-radius:50%;pointer-events:none;z-index:9999;mix-blend-mode:difference;transition:transform .15s ease;transform:translate(-50%,-50%);}
+#cursor-ring{position:fixed;width:40px;height:40px;border:1.5px solid rgba(255,255,255,0.4);border-radius:50%;pointer-events:none;z-index:9998;transition:transform .35s ease,width .3s,height .3s,border-color .3s;transform:translate(-50%,-50%);}
+body.hovering #cursor{transform:translate(-50%,-50%) scale(2.5);}
+body.hovering #cursor-ring{width:60px;height:60px;border-color:var(--pink);transform:translate(-50%,-50%);}
+
+/* ── Scroll progress ─── */
+#prog{position:fixed;top:0;left:0;height:2px;width:0%;z-index:500;background:var(--grad);}
+
+/* ── Noise overlay ─── */
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");opacity:.025;pointer-events:none;z-index:0;}
+
+/* ── Navbar ─── */
+.nav{position:fixed;top:0;left:0;right:0;z-index:300;padding:0 40px;height:72px;display:flex;align-items:center;justify-content:space-between;transition:all .4s;}
+.nav.scrolled{background:rgba(7,7,13,0.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);}
+.nav-logo{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:22px;letter-spacing:-0.5px;color:var(--text);cursor:pointer;}
+.nav-logo span{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.nav-links{display:flex;gap:32px;align-items:center;}
+.nav-links a{font-size:14px;font-weight:500;color:var(--muted2);text-decoration:none;transition:color .2s;letter-spacing:.2px;}
+.nav-links a:hover{color:var(--text);}
+.nav-btn{
+  padding:10px 24px;border-radius:8px;font-weight:600;font-size:14px;cursor:pointer;
+  background:var(--surface);border:1px solid var(--border2);color:var(--text);
+  font-family:'DM Sans',sans-serif;transition:all .25s;position:relative;overflow:hidden;
+  letter-spacing:.2px;
+}
+.nav-btn::before{content:'';position:absolute;inset:0;background:var(--grad);opacity:0;transition:opacity .25s;}
+.nav-btn:hover::before{opacity:1;}
+.nav-btn span{position:relative;z-index:1;}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px;}
+.hamburger span{width:24px;height:1.5px;background:var(--text);display:block;transition:all .3s;border-radius:2px;}
+
+/* ── Hero ─── */
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden;padding:120px 40px 80px;}
+.hero-mesh{position:absolute;inset:0;pointer-events:none;z-index:0;}
+.mesh-blob{position:absolute;border-radius:50%;filter:blur(100px);will-change:transform;}
+.mb1{width:700px;height:700px;background:rgba(236,72,153,0.18);top:-200px;left:-150px;animation:mb-drift1 18s ease-in-out infinite;}
+.mb2{width:600px;height:600px;background:rgba(139,92,246,0.15);top:10%;right:-150px;animation:mb-drift2 22s ease-in-out infinite;}
+.mb3{width:500px;height:500px;background:rgba(6,182,212,0.12);bottom:-100px;left:20%;animation:mb-drift3 15s ease-in-out infinite;}
+@keyframes mb-drift1{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(60px,40px) scale(1.08);}}
+@keyframes mb-drift2{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(-50px,60px) scale(1.1);}}
+@keyframes mb-drift3{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(40px,-50px) scale(1.06);}}
+.hero-content{position:relative;z-index:1;text-align:center;max-width:960px;}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  border:1px solid var(--border2);background:var(--surface);
+  border-radius:24px;padding:7px 18px;
+  font-size:12px;font-weight:600;color:var(--muted2);
+  letter-spacing:1px;text-transform:uppercase;margin-bottom:28px;
+  animation:fade-in .8s ease forwards;opacity:0;
+}
+.eyebrow-dot{width:6px;height:6px;border-radius:50%;background:var(--pink);animation:pulse-dot 1.6s ease-in-out infinite;}
+@keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.5;transform:scale(1.5);}}
+@keyframes fade-in{to{opacity:1;}}
+.hero-title{
+  font-size:clamp(52px,7vw,96px);font-weight:700;line-height:.98;
+  letter-spacing:-3px;margin-bottom:24px;
+  animation:fade-up 1s .2s ease both;
+}
+.hero-title .grad-text{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;background-size:200% auto;animation:grad-shift 5s linear infinite;}
+@keyframes grad-shift{0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
+@keyframes fade-up{from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:translateY(0);}}
+.hero-sub{font-size:18px;line-height:1.7;color:var(--muted2);max-width:580px;margin:0 auto 40px;animation:fade-up 1s .4s ease both;font-weight:400;}
+.hero-actions{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;animation:fade-up 1s .6s ease both;}
+.btn-grad{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--grad);color:#fff;padding:15px 36px;border-radius:10px;
+  font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:15px;
+  cursor:pointer;border:none;text-decoration:none;letter-spacing:.3px;
+  transition:all .3s;box-shadow:0 0 40px rgba(236,72,153,0.3);
+  position:relative;overflow:hidden;
+}
+.btn-grad::after{content:'';position:absolute;inset:0;background:rgba(255,255,255,0);transition:background .25s;}
+.btn-grad:hover::after{background:rgba(255,255,255,0.12);}
+.btn-grad:hover{transform:translateY(-2px);box-shadow:0 0 60px rgba(236,72,153,0.5);}
+.btn-ghost{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--surface);color:var(--text);padding:14px 32px;border-radius:10px;
+  font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:15px;
+  cursor:pointer;border:1px solid var(--border2);text-decoration:none;letter-spacing:.3px;
+  transition:all .3s;
+}
+.btn-ghost:hover{background:var(--surface2);border-color:rgba(255,255,255,0.25);transform:translateY(-2px);}
+.hero-scroll{position:absolute;bottom:36px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;animation:fade-in 1s 1s ease both;opacity:0;}
+.scroll-line{width:1px;height:48px;background:linear-gradient(to bottom,transparent,rgba(255,255,255,0.4),transparent);animation:scroll-line 2s ease-in-out infinite;}
+@keyframes scroll-line{0%,100%{opacity:.4;}50%{opacity:1;}}
+.scroll-text{font-size:11px;color:var(--muted);font-weight:500;letter-spacing:2px;text-transform:uppercase;}
+
+/* ── Marquee ─── */
+.marquee-section{border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:18px 0;background:var(--bg);overflow:hidden;position:relative;z-index:1;}
+.marquee-track{display:flex;gap:0;white-space:nowrap;animation:marquee 30s linear infinite;}
+.marquee-track:hover{animation-play-state:paused;}
+.marquee-item{display:inline-flex;align-items:center;gap:12px;padding:0 32px;font-size:14px;font-weight:600;color:var(--muted);letter-spacing:.5px;text-transform:uppercase;}
+.marquee-sep{width:5px;height:5px;border-radius:50%;background:var(--pink);flex-shrink:0;}
+@keyframes marquee{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+/* ── Stats bar ─── */
+.stats-section{background:var(--bg2);border-bottom:1px solid var(--border);padding:60px 40px;}
+.stats-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:0;}
+.stat-block{text-align:center;padding:0 24px;border-right:1px solid var(--border);}
+.stat-block:last-child{border-right:none;}
+.stat-number{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(36px,4vw,52px);line-height:1;margin-bottom:8px;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.stat-label{font-size:14px;color:var(--muted2);font-weight:500;}
+
+/* ── Section base ─── */
+.section{padding:100px 40px;position:relative;}
+.section-inner{max-width:1200px;margin:0 auto;}
+.tag{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--pink);margin-bottom:16px;display:flex;align-items:center;gap:8px;}
+.tag::before{content:'';width:24px;height:1px;background:var(--pink);}
+.s-title{font-size:clamp(32px,4vw,52px);font-weight:700;line-height:1.1;letter-spacing:-1.5px;margin-bottom:16px;}
+.s-sub{font-size:16px;line-height:1.8;color:var(--muted2);max-width:520px;}
+
+/* Scroll reveal */
+.sr{opacity:0;transform:translateY(32px);transition:opacity .7s ease,transform .7s ease;}
+.sr.in{opacity:1;transform:none;}
+.sr-l{opacity:0;transform:translateX(-36px);transition:opacity .7s ease,transform .7s ease;}
+.sr-l.in{opacity:1;transform:none;}
+.sr-r{opacity:0;transform:translateX(36px);transition:opacity .7s ease,transform .7s ease;}
+.sr-r.in{opacity:1;transform:none;}
+.sr-s{opacity:0;transform:scale(.92);transition:opacity .6s ease,transform .6s ease;}
+.sr-s.in{opacity:1;transform:scale(1);}
+.d1{transition-delay:0ms;}.d2{transition-delay:100ms;}.d3{transition-delay:200ms;}.d4{transition-delay:300ms;}.d5{transition-delay:400ms;}.d6{transition-delay:500ms;}
+@media(prefers-reduced-motion:reduce){.sr,.sr-l,.sr-r,.sr-s{transition:none;opacity:1;transform:none;}}
+
+/* ── Services ─── */
+.services-bg{background:var(--bg2);}
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);margin-top:64px;border-radius:20px;overflow:hidden;}
+.service-card{background:var(--bg2);padding:36px 32px;transition:all .35s;position:relative;overflow:hidden;cursor:default;}
+.service-card::before{content:'';position:absolute;inset:0;background:var(--grad);opacity:0;transition:opacity .35s;}
+.service-card:hover::before{opacity:.06;}
+.service-card:hover{background:#111122;}
+.service-card:hover .s-icon{transform:scale(1.1) rotate(-5deg);}
+.s-icon{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:20px;transition:transform .35s;flex-shrink:0;}
+.s-icon svg{width:24px;height:24px;}
+.s-card-title{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:18px;margin-bottom:10px;color:var(--text);}
+.s-card-desc{font-size:14px;line-height:1.75;color:var(--muted2);}
+.s-arrow{position:absolute;bottom:28px;right:28px;width:32px;height:32px;border-radius:8px;background:var(--surface);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;opacity:0;transition:all .3s;}
+.service-card:hover .s-arrow{opacity:1;background:var(--surface2);}
+.s-arrow svg{width:14px;height:14px;stroke:var(--pink);}
+
+/* ── Process ─── */
+.process-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
+.process-steps{display:flex;flex-direction:column;gap:0;}
+.p-step{display:flex;gap:20px;padding:24px 0;border-bottom:1px solid var(--border);position:relative;cursor:default;transition:all .3s;}
+.p-step:last-child{border-bottom:none;}
+.p-step:hover .p-step-content{transform:translateX(6px);}
+.p-num{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:11px;color:var(--muted);letter-spacing:2px;padding-top:4px;min-width:32px;}
+.p-step-content{transition:transform .3s;}
+.p-step-title{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:17px;margin-bottom:6px;color:var(--text);}
+.p-step-desc{font-size:14px;line-height:1.7;color:var(--muted2);}
+.process-visual{position:relative;}
+.proc-card{
+  background:var(--surface);border:1px solid var(--border);border-radius:20px;
+  padding:28px;backdrop-filter:blur(20px);position:relative;overflow:hidden;
+}
+.proc-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--grad);}
+.proc-phone{
+  width:100%;aspect-ratio:9/16;max-width:280px;margin:0 auto;display:block;
+  background:linear-gradient(160deg,#1a1a2e,#16213e);
+  border-radius:32px;border:2px solid var(--border2);
+  position:relative;overflow:hidden;
+  box-shadow:0 40px 80px rgba(0,0,0,0.6);
+}
+.phone-notch{width:80px;height:24px;background:#07070d;border-radius:0 0 14px 14px;margin:0 auto;position:relative;z-index:2;}
+.phone-content{padding:12px;display:flex;flex-direction:column;gap:8px;}
+.phone-story{height:160px;border-radius:12px;background:linear-gradient(135deg,rgba(236,72,153,0.3),rgba(139,92,246,0.3));display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:14px;color:var(--text);position:relative;overflow:hidden;}
+.phone-story::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--pink),var(--purple));opacity:.15;}
+.reel-badge{position:absolute;top:8px;left:8px;background:rgba(0,0,0,0.7);border-radius:6px;padding:3px 8px;font-size:10px;font-weight:700;color:#fff;z-index:2;}
+.phone-metric-row{display:flex;gap:8px;}
+.phone-metric{flex:1;background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:10px;padding:10px;text-align:center;}
+.pm-val{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:16px;color:var(--cyan);}
+.pm-label{font-size:9px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.5px;margin-top:2px;}
+.phone-caption{background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:10px;padding:10px 12px;font-size:11px;color:var(--muted2);line-height:1.5;}
+.float-metric{
+  position:absolute;background:rgba(7,7,13,0.9);border:1px solid var(--border2);
+  border-radius:12px;padding:12px 16px;backdrop-filter:blur(16px);
+  font-size:12px;font-weight:700;color:var(--text);display:flex;align-items:center;gap:8px;
+}
+.fm1{bottom:-16px;right:-16px;animation:fm-float 3.5s ease-in-out infinite;}
+.fm2{top:-16px;left:-16px;animation:fm-float 4s ease-in-out infinite .8s;}
+@keyframes fm-float{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
+.up-arrow{color:var(--cyan);font-size:16px;}
+
+/* ── Work / Portfolio ─── */
+.work-bg{background:var(--bg2);}
+.work-filter{display:flex;gap:8px;margin-top:40px;flex-wrap:wrap;}
+.wf-btn{padding:8px 18px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:1px solid var(--border);background:var(--surface);color:var(--muted2);transition:all .25s;font-family:'DM Sans',sans-serif;}
+.wf-btn:hover,.wf-btn.active{border-color:var(--pink);color:var(--text);background:rgba(236,72,153,0.1);}
+.work-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:32px;}
+.work-card{
+  border-radius:16px;overflow:hidden;position:relative;aspect-ratio:4/5;
+  cursor:pointer;
+  transition:transform .4s cubic-bezier(.34,1.2,.64,1),box-shadow .4s ease;
+}
+.work-card:hover{transform:scale(1.03);box-shadow:0 30px 80px rgba(0,0,0,.6);}
+.work-card:hover .work-overlay{opacity:1;}
+.work-card:hover .work-img{transform:scale(1.08);}
+.work-img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease;}
+.work-img-fake{width:100%;height:100%;transition:transform .6s ease;}
+.work-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(7,7,13,.95) 40%,transparent 100%);opacity:0;transition:opacity .35s;display:flex;flex-direction:column;justify-content:flex-end;padding:24px;}
+.work-client{font-size:11px;font-weight:700;color:var(--pink);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px;}
+.work-name{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:18px;color:var(--text);margin-bottom:10px;}
+.work-tags{display:flex;gap:6px;flex-wrap:wrap;}
+.w-tag{font-size:10px;font-weight:600;padding:3px 8px;border-radius:5px;background:rgba(255,255,255,.1);color:var(--muted2);}
+.work-card-always{position:absolute;bottom:0;left:0;right:0;padding:18px;background:linear-gradient(to top,rgba(7,7,13,.8) 0%,transparent);}
+.work-client-name{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:14px;color:rgba(255,255,255,.8);}
+
+/* ── Platforms ─── */
+.platforms-inner{display:grid;grid-template-columns:repeat(6,1fr);gap:16px;margin-top:56px;}
+.plat-card{
+  border:1px solid var(--border);border-radius:16px;padding:24px 16px;
+  text-align:center;background:var(--surface);
+  transition:all .35s cubic-bezier(.34,1.2,.64,1);cursor:default;
+}
+.plat-card:hover{border-color:var(--border2);background:var(--surface2);transform:translateY(-6px);box-shadow:0 20px 48px rgba(0,0,0,.4);}
+.plat-card:hover .plat-icon-wrap{transform:scale(1.15) rotate(-5deg);}
+.plat-icon-wrap{width:52px;height:52px;border-radius:14px;margin:0 auto 12px;display:flex;align-items:center;justify-content:center;transition:transform .35s;}
+.plat-icon-wrap svg{width:26px;height:26px;}
+.plat-name{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:13px;color:var(--muted2);margin-bottom:4px;}
+.plat-stat{font-size:11px;color:var(--muted);font-weight:500;}
+
+/* ── Results / Case Study ─── */
+.results-bg{background:linear-gradient(135deg,rgba(236,72,153,.06) 0%,rgba(139,92,246,.06) 50%,rgba(6,182,212,.06) 100%);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+.results-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:56px;}
+.result-card{
+  background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:32px 28px;
+  transition:all .35s;position:relative;overflow:hidden;
+}
+.result-card::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:var(--grad);transform:scaleX(0);transition:transform .4s ease;transform-origin:left;}
+.result-card:hover::after{transform:scaleX(1);}
+.result-card:hover{background:var(--surface2);border-color:var(--border2);transform:translateY(-4px);}
+.result-brand{font-size:11px;font-weight:700;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:14px;}
+.result-metric{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(36px,4vw,52px);letter-spacing:-1.5px;margin-bottom:4px;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1;}
+.result-label{font-size:14px;color:var(--muted2);margin-bottom:16px;}
+.result-desc{font-size:13px;color:var(--muted);line-height:1.7;border-top:1px solid var(--border);padding-top:14px;}
+
+/* ── Testimonials ─── */
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:56px;}
+.testi-card{
+  background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:28px;
+  transition:all .35s;position:relative;
+}
+.testi-card:hover{background:var(--surface2);border-color:var(--border2);transform:translateY(-4px);box-shadow:0 24px 60px rgba(0,0,0,.4);}
+.quote-icon{width:32px;height:32px;margin-bottom:16px;opacity:.4;}
+.testi-text{font-size:15px;line-height:1.75;color:var(--muted2);margin-bottom:22px;font-style:italic;}
+.testi-author{display:flex;align-items:center;gap:12px;}
+.t-av{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:16px;color:#fff;flex-shrink:0;}
+.t-name{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:14px;color:var(--text);margin-bottom:2px;}
+.t-role{font-size:12px;color:var(--muted);}
+.testi-stars{display:flex;gap:3px;margin-bottom:16px;}
+.star{width:14px;height:14px;fill:var(--yellow);}
+
+/* ── Why India section ─── */
+.india-bg{background:var(--bg2);}
+.india-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
+.india-text .s-title{font-size:clamp(32px,4vw,52px);}
+.india-perks{display:flex;flex-direction:column;gap:16px;margin-top:36px;}
+.india-perk{display:flex;gap:16px;align-items:flex-start;padding:18px;border:1px solid var(--border);border-radius:14px;background:var(--surface);transition:all .3s;}
+.india-perk:hover{border-color:var(--border2);background:var(--surface2);transform:translateX(6px);}
+.perk-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.perk-icon svg{width:18px;height:18px;}
+.perk-title{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:14px;margin-bottom:4px;}
+.perk-desc{font-size:13px;color:var(--muted2);line-height:1.6;}
+.india-visual{position:relative;}
+.city-card{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:28px;position:relative;overflow:hidden;}
+.city-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--grad);}
+.city-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px;}
+.city-item{background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:12px;padding:14px 16px;transition:all .3s;}
+.city-item:hover{background:rgba(255,255,255,.06);border-color:var(--border2);}
+.city-name{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:14px;color:var(--text);margin-bottom:2px;}
+.city-sub{font-size:11px;color:var(--muted);font-weight:600;}
+.city-dot{width:6px;height:6px;border-radius:50%;background:var(--green-dot,var(--pink));display:inline-block;margin-right:6px;animation:pulse-dot 2s ease-in-out infinite;}
+
+/* ── CTA Band ─── */
+.cta-band{
+  padding:120px 40px;text-align:center;position:relative;overflow:hidden;
+  background:linear-gradient(135deg,#0d0020 0%,#07070d 40%,#001a20 100%);
+  border-top:1px solid var(--border);
+}
+.cta-mesh1{position:absolute;width:600px;height:600px;background:rgba(236,72,153,.15);top:-200px;left:-150px;border-radius:50%;filter:blur(100px);pointer-events:none;}
+.cta-mesh2{position:absolute;width:500px;height:500px;background:rgba(6,182,212,.1);bottom:-150px;right:-100px;border-radius:50%;filter:blur(100px);pointer-events:none;}
+.cta-inner{position:relative;z-index:1;max-width:800px;margin:0 auto;}
+.cta-title{font-size:clamp(40px,6vw,80px);font-weight:700;letter-spacing:-2.5px;line-height:.95;margin-bottom:24px;}
+.cta-sub{font-size:18px;color:var(--muted2);line-height:1.7;max-width:520px;margin:0 auto 40px;font-weight:400;}
+.cta-contact-strip{
+  display:flex;gap:24px;justify-content:center;margin-top:48px;padding-top:40px;
+  border-top:1px solid var(--border);flex-wrap:wrap;
+}
+.cta-contact-item{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--muted2);font-weight:500;}
+.cta-contact-item svg{width:16px;height:16px;stroke:var(--pink);stroke-width:1.8;flex-shrink:0;}
+.cta-contact-item a{color:var(--muted2);text-decoration:none;transition:color .2s;}
+.cta-contact-item a:hover{color:var(--text);}
+
+/* ── Footer ─── */
+.footer{background:var(--bg);border-top:1px solid var(--border);padding:64px 40px 32px;}
+.footer-inner{max-width:1200px;margin:0 auto;}
+.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:56px;}
+.f-logo{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:22px;margin-bottom:14px;}
+.f-logo span{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.f-desc{font-size:13px;line-height:1.8;color:var(--muted);max-width:240px;}
+.f-social{display:flex;gap:8px;margin-top:20px;}
+.f-soc-btn{width:34px;height:34px;border-radius:8px;border:1px solid var(--border);background:var(--surface);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .25s;}
+.f-soc-btn:hover{border-color:var(--pink);background:rgba(236,72,153,.1);}
+.f-soc-btn svg{width:14px;height:14px;stroke:var(--muted2);}
+.f-soc-btn:hover svg{stroke:var(--pink);}
+.f-col-title{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:12px;color:var(--text);margin-bottom:18px;letter-spacing:1px;text-transform:uppercase;}
+.f-links{list-style:none;display:flex;flex-direction:column;gap:11px;}
+.f-links li a{font-size:13px;color:var(--muted);text-decoration:none;transition:color .2s;}
+.f-links li a:hover{color:var(--text);}
+.footer-bottom{border-top:1px solid var(--border);padding-top:24px;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--muted);flex-wrap:wrap;gap:12px;}
+.f-legal{display:flex;gap:20px;}
+.f-legal a{color:var(--muted);text-decoration:none;transition:color .2s;}
+.f-legal a:hover{color:var(--text);}
+
+/* ── Ripple ─── */
+.ripple-btn{position:relative;overflow:hidden;}
+.ripple-wave{position:absolute;border-radius:50%;background:rgba(255,255,255,0.2);transform:scale(0);animation:rw .6s linear;pointer-events:none;}
+@keyframes rw{to{transform:scale(4);opacity:0;}}
+
+/* ── Responsive ─── */
+@media(max-width:1024px){
+  .services-grid{grid-template-columns:repeat(2,1fr);}
+  .work-grid{grid-template-columns:repeat(2,1fr);}
+  .platforms-inner{grid-template-columns:repeat(3,1fr);}
+  .results-grid{grid-template-columns:1fr 1fr;}
+  .testi-grid{grid-template-columns:1fr 1fr;}
+  .india-grid{grid-template-columns:1fr;gap:48px;}
+  .footer-top{grid-template-columns:1fr 1fr;}
+}
+@media(max-width:768px){
+  .nav-links{display:none;}
+  .hamburger{display:flex;}
+  .hero{padding:120px 20px 80px;}
+  .section{padding:72px 20px;}
+  .stats-inner{grid-template-columns:repeat(2,1fr);gap:24px;}
+  .stat-block{border-right:none;border-bottom:1px solid var(--border);padding-bottom:24px;}
+  .stat-block:nth-child(2n){border-right:none;}
+  .stat-block:last-child,.stat-block:nth-last-child(2){border-bottom:none;}
+  .services-grid{grid-template-columns:1fr;}
+  .process-grid{grid-template-columns:1fr;}
+  .work-grid{grid-template-columns:1fr;}
+  .platforms-inner{grid-template-columns:repeat(2,1fr);}
+  .results-grid{grid-template-columns:1fr;}
+  .testi-grid{grid-template-columns:1fr;}
+  .footer-top{grid-template-columns:1fr;}
+  #cursor,#cursor-ring{display:none;}
+  body{cursor:auto;}
+  .cta-band{padding:72px 20px;}
+  .footer{padding:48px 20px 24px;}
+  .nav{padding:0 20px;}
+}
+@media(max-width:480px){
+  .hero-title{letter-spacing:-1.5px;}
+  .platforms-inner{grid-template-columns:repeat(2,1fr);}
+  .city-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- Custom cursor -->
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<!-- Scroll progress -->
+<div id="prog"></div>
+
+<!-- NAVBAR -->
+<nav class="nav" id="nav">
+  <div class="nav-logo"><span>VIBE</span>.</div>
+  <div class="nav-links" id="nav-links">
+    <a href="#services">Services</a>
+    <a href="#work">Work</a>
+    <a href="#results">Results</a>
+    <a href="#about">Why Us</a>
+    <button class="nav-btn ripple-btn"><span>Get a Free Audit</span></button>
+  </div>
+  <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-mesh">
+    <div class="mesh-blob mb1"></div>
+    <div class="mesh-blob mb2"></div>
+    <div class="mesh-blob mb3"></div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <div class="eyebrow-dot"></div>
+      India's #1 Social Media Growth Agency
+    </div>
+    <h1 class="hero-title">
+      We Make Brands<br>
+      <span class="grad-text">Unmissable.</span>
+    </h1>
+    <p class="hero-sub">From Mumbai startups to Delhi enterprises — we engineer social media strategies that turn followers into fans, and fans into revenue.</p>
+    <div class="hero-actions">
+      <a href="#work" class="btn-grad ripple-btn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        See Our Work
+      </a>
+      <a href="#contact" class="btn-ghost">Get a Free Strategy Call</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <div class="scroll-text">Scroll</div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-section">
+  <div class="marquee-track" id="marquee-track">
+    <div class="marquee-item"><div class="marquee-sep"></div>Instagram Reels</div>
+    <div class="marquee-item"><div class="marquee-sep"></div>YouTube Shorts</div>
+    <div class="marquee-item"><div class="marquee-sep"></div>LinkedIn Growth</div>
+    <div class="marquee-item"><div class="marquee-sep"></div>Influencer Marketing</div>
+    <div class="marquee-item"><div class="marquee-sep"></div>Content Strategy</div>
+    <div class="marquee-item"><div class="marquee-sep"></div>Paid Social Ads</div>
+    <div class="marquee-item"><div class="marquee-sep"></div>Brand Identity</div>
+    <div class="marquee-item"><div class="marquee-sep"></div>Community Management</div>
+    <div class="marquee-item"><div class="marquee-sep"></div>Analytics & Reporting</div>
+    <div class="marquee-item"><div class="marquee-sep"></div>Instagram Reels</div>
+    <div class="marquee-item"><div class="marquee-sep"></div>YouTube Shorts</div>
+    <div class="marquee-item"><div class="marquee-sep"></div>LinkedIn Growth</div>
+    <div class="marquee-item"><div class="marquee-sep"></div>Influencer Marketing</div>
+    <div class="marquee-item"><div class="marquee-sep"></div>Content Strategy</div>
+    <div class="marquee-item"><div class="marquee-sep"></div>Paid Social Ads</div>
+    <div class="marquee-item"><div class="marquee-sep"></div>Brand Identity</div>
+    <div class="marquee-item"><div class="marquee-sep"></div>Community Management</div>
+    <div class="marquee-item"><div class="marquee-sep"></div>Analytics & Reporting</div>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats-section">
+  <div class="stats-inner">
+    <div class="stat-block sr d1"><div class="stat-number" data-count="500" data-suffix="+">0</div><div class="stat-label">Brands Scaled</div></div>
+    <div class="stat-block sr d2"><div class="stat-number" data-count="2.4" data-suffix="B+" data-decimal="1">0</div><div class="stat-label">Total Impressions Delivered</div></div>
+    <div class="stat-block sr d3"><div class="stat-number" data-count="12" data-suffix="M+">0</div><div class="stat-label">Followers Grown</div></div>
+    <div class="stat-block sr d4"><div class="stat-number" data-count="340" data-suffix="%">0</div><div class="stat-label">Average Engagement Lift</div></div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section class="section services-bg" id="services">
+  <div class="section-inner">
+    <div class="tag sr">What We Do</div>
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:24px;">
+      <h2 class="s-title sr d2" style="max-width:500px;">Every Service<br>You'll Ever Need.</h2>
+      <p class="s-sub sr d3" style="margin-bottom:4px;">We don't outsource, we don't use templates. Every strategy is built from scratch for your brand.</p>
+    </div>
+    <div class="services-grid">
+
+      <div class="service-card sr d1">
+        <div class="s-icon" style="background:rgba(236,72,153,.12);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#EC4899" stroke-width="1.8"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        </div>
+        <div class="s-card-title">Content Production</div>
+        <div class="s-card-desc">Reels, carousels, stories, and short-form video — shot and edited by our in-house creative team. Content that stops the scroll.</div>
+        <div class="s-arrow"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+      </div>
+
+      <div class="service-card sr d2">
+        <div class="s-icon" style="background:rgba(139,92,246,.12);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#8B5CF6" stroke-width="1.8"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+        </div>
+        <div class="s-card-title">Community Management</div>
+        <div class="s-card-desc">24/7 comment replies, DM handling, and active community building. We keep your audience engaged and loyal, every hour of every day.</div>
+        <div class="s-arrow"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+      </div>
+
+      <div class="service-card sr d3">
+        <div class="s-icon" style="background:rgba(6,182,212,.12);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#06B6D4" stroke-width="1.8"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <div class="s-card-title">Growth Strategy</div>
+        <div class="s-card-desc">Data-led content calendars, hashtag research, posting schedules, and growth audits — built around your brand goals, not generic templates.</div>
+        <div class="s-arrow"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+      </div>
+
+      <div class="service-card sr d1">
+        <div class="s-icon" style="background:rgba(251,191,36,.1);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#FBBF24" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M8.56 2.75c4.37 6.03 6.02 9.42 8.03 17.72m2.54-15.38c-3.72 4.35-8.94 5.66-16.88 5.85m19.5 1.9c-3.5-.93-6.63-.82-8.94 0-2.58.92-5.01 2.86-7.44 6.32"/></svg>
+        </div>
+        <div class="s-card-title">Influencer Marketing</div>
+        <div class="s-card-desc">Access to 10,000+ vetted Indian influencers. We handle briefs, negotiations, delivery, and reporting — end to end.</div>
+        <div class="s-arrow"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+      </div>
+
+      <div class="service-card sr d2">
+        <div class="s-icon" style="background:rgba(236,72,153,.12);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#EC4899" stroke-width="1.8"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+        </div>
+        <div class="s-card-title">Paid Social Advertising</div>
+        <div class="s-card-desc">Meta, YouTube, LinkedIn and Snapchat ads with performance-obsessed targeting. We run campaigns that generate real ROI, not just impressions.</div>
+        <div class="s-arrow"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+      </div>
+
+      <div class="service-card sr d3">
+        <div class="s-icon" style="background:rgba(139,92,246,.12);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#8B5CF6" stroke-width="1.8"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg>
+        </div>
+        <div class="s-card-title">Analytics & Reporting</div>
+        <div class="s-card-desc">Monthly deep-dive reports with competitor benchmarks, ROI attribution, and clear next-step recommendations. No vanity metrics — just truth.</div>
+        <div class="s-arrow"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="section">
+  <div class="section-inner">
+    <div class="process-grid">
+      <div>
+        <div class="tag sr">How We Work</div>
+        <h2 class="s-title sr d2">A Process Built<br>for Results.</h2>
+        <p class="s-sub sr d3">We hate generic. Every brand gets a custom playbook built from week one.</p>
+        <div class="process-steps" style="margin-top:44px;">
+          <div class="p-step sr d1">
+            <div class="p-num">01</div>
+            <div class="p-step-content">
+              <div class="p-step-title">Discovery & Audit</div>
+              <div class="p-step-desc">We dissect your current accounts, competitors, and audience — building a clear picture of where you stand and where the real opportunity is.</div>
+            </div>
+          </div>
+          <div class="p-step sr d2">
+            <div class="p-num">02</div>
+            <div class="p-step-content">
+              <div class="p-step-title">Strategy Blueprint</div>
+              <div class="p-step-desc">A 90-day custom playbook: content pillars, platform mix, posting rhythm, tone of voice, and growth KPIs — aligned to your revenue goals.</div>
+            </div>
+          </div>
+          <div class="p-step sr d3">
+            <div class="p-num">03</div>
+            <div class="p-step-content">
+              <div class="p-step-title">Create & Publish</div>
+              <div class="p-step-desc">Our in-house team produces all content. You review and approve — we handle everything else, from captions to scheduling.</div>
+            </div>
+          </div>
+          <div class="p-step sr d4">
+            <div class="p-num">04</div>
+            <div class="p-step-content">
+              <div class="p-step-title">Optimise & Scale</div>
+              <div class="p-step-desc">Weekly performance reviews, A/B testing, and continuous refinement. What works gets scaled. What doesn't gets cut. No sentiment, only data.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="sr-r">
+        <div class="proc-card" style="position:relative;">
+          <div style="font-size:11px;font-weight:700;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:20px;">Live Campaign Preview</div>
+          <div class="float-metric fm2" style="top:-20px;left:-20px;">
+            <span class="up-arrow">↑</span> 428% reach this week
+          </div>
+          <div class="float-metric fm1" style="bottom:-20px;right:-20px;">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#EC4899" stroke-width="2.5"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+            12.4K new followers
+          </div>
+          <div class="proc-phone">
+            <div class="phone-notch"></div>
+            <div class="phone-content">
+              <div class="phone-story">
+                <div class="reel-badge">▶ Reel</div>
+                <div style="position:relative;z-index:1;font-size:15px;color:#fff;font-family:'Space Grotesk',sans-serif;font-weight:700;text-align:center;padding:12px;">Your Brand<br>Goes Viral Here</div>
+              </div>
+              <div class="phone-metric-row">
+                <div class="phone-metric"><div class="pm-val">2.4M</div><div class="pm-label">Views</div></div>
+                <div class="phone-metric"><div class="pm-val">98K</div><div class="pm-label">Likes</div></div>
+                <div class="phone-metric"><div class="pm-val">4.2K</div><div class="pm-label">Shares</div></div>
+              </div>
+              <div class="phone-caption">✨ Crafted by VIBE. · Caption written, hashtags researched, posted at peak time.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WORK -->
+<section class="section work-bg" id="work">
+  <div class="section-inner">
+    <div class="tag sr">Our Work</div>
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:24px;">
+      <h2 class="s-title sr d2">Brands We've<br>Transformed.</h2>
+      <a href="#contact" class="btn-ghost sr d3" style="margin-bottom:4px;">View Full Portfolio →</a>
+    </div>
+    <div class="work-filter sr d2">
+      <button class="wf-btn active" onclick="filterWork(this,'all')">All</button>
+      <button class="wf-btn" onclick="filterWork(this,'fashion')">Fashion</button>
+      <button class="wf-btn" onclick="filterWork(this,'food')">Food & Beverage</button>
+      <button class="wf-btn" onclick="filterWork(this,'fintech')">Fintech</button>
+      <button class="wf-btn" onclick="filterWork(this,'wellness')">Wellness</button>
+    </div>
+    <div class="work-grid">
+
+      <div class="work-card sr d1" data-cat="fashion">
+        <div class="work-img-fake" style="background:linear-gradient(145deg,#1a0020,#3d0060,#ec4899);"></div>
+        <div class="work-overlay">
+          <div class="work-client">Fashion · Mumbai</div>
+          <div class="work-name">Silk & Thread Co.</div>
+          <div class="work-tags"><span class="w-tag">Instagram</span><span class="w-tag">Reels</span><span class="w-tag">+280K followers</span></div>
+        </div>
+      </div>
+
+      <div class="work-card sr d2" data-cat="food">
+        <div class="work-img-fake" style="background:linear-gradient(145deg,#1a0a00,#3d1a00,#f97316);"></div>
+        <div class="work-overlay">
+          <div class="work-client">F&B · Delhi</div>
+          <div class="work-name">Chai & Spice Co.</div>
+          <div class="work-tags"><span class="w-tag">YouTube Shorts</span><span class="w-tag">3.2M views</span></div>
+        </div>
+      </div>
+
+      <div class="work-card sr d3" data-cat="fintech">
+        <div class="work-img-fake" style="background:linear-gradient(145deg,#00101a,#003040,#06b6d4);"></div>
+        <div class="work-overlay">
+          <div class="work-client">Fintech · Bangalore</div>
+          <div class="work-name">RupeeCard</div>
+          <div class="work-tags"><span class="w-tag">LinkedIn</span><span class="w-tag">Twitter</span><span class="w-tag">+410% growth</span></div>
+        </div>
+      </div>
+
+      <div class="work-card sr d1" data-cat="wellness">
+        <div class="work-img-fake" style="background:linear-gradient(145deg,#0a1a00,#1a3d00,#22c55e);"></div>
+        <div class="work-overlay">
+          <div class="work-client">Wellness · Hyderabad</div>
+          <div class="work-name">NaturGlow Skincare</div>
+          <div class="work-tags"><span class="w-tag">Instagram</span><span class="w-tag">Influencer</span><span class="w-tag">5M reach</span></div>
+        </div>
+      </div>
+
+      <div class="work-card sr d2" data-cat="fashion">
+        <div class="work-img-fake" style="background:linear-gradient(145deg,#1a1a00,#3d3d00,#fbbf24);"></div>
+        <div class="work-overlay">
+          <div class="work-client">Streetwear · Pune</div>
+          <div class="work-name">Urban Drip India</div>
+          <div class="work-tags"><span class="w-tag">TikTok Strategy</span><span class="w-tag">+600K followers</span></div>
+        </div>
+      </div>
+
+      <div class="work-card sr d3" data-cat="food">
+        <div class="work-img-fake" style="background:linear-gradient(145deg,#1a001a,#3d003d,#8b5cf6);"></div>
+        <div class="work-overlay">
+          <div class="work-client">D2C · Chennai</div>
+          <div class="work-name">BrewBox Coffee</div>
+          <div class="work-tags"><span class="w-tag">Reels</span><span class="w-tag">Paid Social</span><span class="w-tag">12X ROAS</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PLATFORMS -->
+<section class="section">
+  <div class="section-inner">
+    <div style="text-align:center;">
+      <div class="tag sr" style="justify-content:center;">Platforms We Master</div>
+      <h2 class="s-title sr d2">Everywhere Your<br>Audience Is.</h2>
+    </div>
+    <div class="platforms-inner">
+
+      <div class="plat-card sr d1">
+        <div class="plat-icon-wrap" style="background:rgba(236,72,153,.12);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#EC4899" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        </div>
+        <div class="plat-name">Instagram</div>
+        <div class="plat-stat">Reels · Stories · Ads</div>
+      </div>
+
+      <div class="plat-card sr d2">
+        <div class="plat-icon-wrap" style="background:rgba(239,68,68,.1);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="1.8"><path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 001.46 6.42 29 29 0 001 12a29 29 0 00.46 5.58A2.78 2.78 0 003.41 19.6C5.12 20.06 12 20.06 12 20.06s6.88 0 8.59-.46a2.78 2.78 0 001.95-1.95A29 29 0 0023 12a29 29 0 00-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg>
+        </div>
+        <div class="plat-name">YouTube</div>
+        <div class="plat-stat">Shorts · SEO · Ads</div>
+      </div>
+
+      <div class="plat-card sr d3">
+        <div class="plat-icon-wrap" style="background:rgba(59,130,246,.1);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="1.8"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        </div>
+        <div class="plat-name">LinkedIn</div>
+        <div class="plat-stat">B2B · Thought Leadership</div>
+      </div>
+
+      <div class="plat-card sr d4">
+        <div class="plat-icon-wrap" style="background:rgba(100,116,139,.1);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="1.8"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.7 5.5 4.3 9 4.5-.6-2.8 1.2-5.5 4-5.5z"/></svg>
+        </div>
+        <div class="plat-name">Twitter / X</div>
+        <div class="plat-stat">Trending · Viral</div>
+      </div>
+
+      <div class="plat-card sr d5">
+        <div class="plat-icon-wrap" style="background:rgba(6,182,212,.1);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#06B6D4" stroke-width="1.8"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.93a8.16 8.16 0 004.77 1.52V7.01a4.85 4.85 0 01-1-.32z"/></svg>
+        </div>
+        <div class="plat-name">TikTok</div>
+        <div class="plat-stat">Viral Content · Growth</div>
+      </div>
+
+      <div class="plat-card sr d6">
+        <div class="plat-icon-wrap" style="background:rgba(251,191,36,.1);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#FBBF24" stroke-width="1.8"><path d="M21 2H3v16h5v4l4-4h5l4-4V2zm-10 9V7m4 4V7"/></svg>
+        </div>
+        <div class="plat-name">Snapchat</div>
+        <div class="plat-stat">Gen Z · Discover Ads</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- RESULTS -->
+<section class="section results-bg" id="results">
+  <div class="section-inner">
+    <div class="tag sr">Proven Results</div>
+    <h2 class="s-title sr d2">Numbers Don't Lie.</h2>
+    <div class="results-grid">
+      <div class="result-card sr d1">
+        <div class="result-brand">Chai & Spice Co. · Food & Bev</div>
+        <div class="result-metric" data-count="3.2" data-suffix="M" data-decimal="1">0</div>
+        <div class="result-label">YouTube Shorts views in 60 days</div>
+        <div class="result-desc">Started at 800 subscribers. In 60 days: 3.2M views, 58K new subscribers, and a sold-out product launch — all driven by Shorts strategy alone.</div>
+      </div>
+      <div class="result-card sr d2">
+        <div class="result-brand">RupeeCard · Fintech</div>
+        <div class="result-metric" data-count="410" data-suffix="%">0</div>
+        <div class="result-label">LinkedIn follower growth in 90 days</div>
+        <div class="result-desc">Repositioned as India's smartest fintech voice on LinkedIn. 3 viral posts in 30 days, 22 press mentions, and 40+ enterprise client inquiries.</div>
+      </div>
+      <div class="result-card sr d3">
+        <div class="result-brand">BrewBox Coffee · D2C</div>
+        <div class="result-metric" data-count="12" data-suffix="X">0</div>
+        <div class="result-label">Return on ad spend (ROAS)</div>
+        <div class="result-desc">₹4L ad spend over 45 days generated ₹48L in direct sales. Creative testing, retargeting funnels, and Reels-first strategy working together.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="section">
+  <div class="section-inner">
+    <div style="text-align:center;max-width:520px;margin:0 auto;">
+      <div class="tag sr" style="justify-content:center;">What Clients Say</div>
+      <h2 class="s-title sr d2">They Trusted Us.<br>We Delivered.</h2>
+    </div>
+    <div class="testi-grid">
+
+      <div class="testi-card sr d1">
+        <svg class="quote-icon" viewBox="0 0 32 32" fill="var(--pink)"><path d="M10 8C6.7 8 4 10.7 4 14v10h10V14H6c0-2.2 1.8-4 4-4V8zm18 0c-3.3 0-6 2.7-6 6v10h10V14h-8c0-2.2 1.8-4 4-4V8z"/></svg>
+        <div class="testi-stars"><svg class="star" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg class="star" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg class="star" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg class="star" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg class="star" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg></div>
+        <p class="testi-text">"VIBE didn't just grow our Instagram — they built us a community. Within 4 months we went from 8K to 94K followers, and our DMs are now a sales channel. The ROI is unlike anything we've seen from a digital agency."</p>
+        <div class="testi-author">
+          <div class="t-av" style="background:linear-gradient(135deg,#EC4899,#8B5CF6);">P</div>
+          <div>
+            <div class="t-name">Priya Sharma</div>
+            <div class="t-role">Founder, Silk &amp; Thread Co. · Mumbai</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card sr d2">
+        <svg class="quote-icon" viewBox="0 0 32 32" fill="var(--pink)"><path d="M10 8C6.7 8 4 10.7 4 14v10h10V14H6c0-2.2 1.8-4 4-4V8zm18 0c-3.3 0-6 2.7-6 6v10h10V14h-8c0-2.2 1.8-4 4-4V8z"/></svg>
+        <div class="testi-stars"><svg class="star" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg class="star" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg class="star" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg class="star" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg class="star" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg></div>
+        <p class="testi-text">"We hired three agencies before VIBE. None of them understood the Indian fintech audience the way these guys do. They cracked LinkedIn for us in ways I didn't think were possible for a startup. Enterprise leads are flowing."</p>
+        <div class="testi-author">
+          <div class="t-av" style="background:linear-gradient(135deg,#06B6D4,#8B5CF6);">A</div>
+          <div>
+            <div class="t-name">Arjun Mehta</div>
+            <div class="t-role">Co-Founder, RupeeCard · Bangalore</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card sr d3">
+        <svg class="quote-icon" viewBox="0 0 32 32" fill="var(--pink)"><path d="M10 8C6.7 8 4 10.7 4 14v10h10V14H6c0-2.2 1.8-4 4-4V8zm18 0c-3.3 0-6 2.7-6 6v10h10V14h-8c0-2.2 1.8-4 4-4V8z"/></svg>
+        <div class="testi-stars"><svg class="star" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg class="star" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg class="star" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg class="star" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg class="star" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg></div>
+        <p class="testi-text">"The content quality blew us away. Every Reel felt like it was made by someone who genuinely understood our brand. BrewBox went from unknown to a household name in Chennai's coffee scene in under 6 months."</p>
+        <div class="testi-author">
+          <div class="t-av" style="background:linear-gradient(135deg,#FBBF24,#f97316);">R</div>
+          <div>
+            <div class="t-name">Riya Nair</div>
+            <div class="t-role">CMO, BrewBox Coffee · Chennai</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- WHY INDIA / WHY VIBE -->
+<section class="section india-bg" id="about">
+  <div class="section-inner">
+    <div class="india-grid">
+      <div>
+        <div class="tag sr">Why VIBE.</div>
+        <h2 class="s-title sr d2 india-text">Built in India.<br>Built for India.</h2>
+        <p class="s-sub sr d3">We understand the Indian consumer — their languages, festivals, price sensitivity, and platform habits — better than any foreign agency ever could.</p>
+        <div class="india-perks">
+          <div class="india-perk sr d1">
+            <div class="perk-icon" style="background:rgba(236,72,153,.12);">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#EC4899" stroke-width="1.8"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+            </div>
+            <div>
+              <div class="perk-title">Pan-India Native Team</div>
+              <div class="perk-desc">Creators, strategists, and editors based in Mumbai, Delhi, and Bangalore — fluent in English, Hindi, and regional culture.</div>
+            </div>
+          </div>
+          <div class="india-perk sr d2">
+            <div class="perk-icon" style="background:rgba(6,182,212,.1);">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#06B6D4" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/></svg>
+            </div>
+            <div>
+              <div class="perk-title">Global Quality, Indian Pricing</div>
+              <div class="perk-desc">Agency-quality work at a fraction of what you'd pay a Western firm. Same standards, smarter budget.</div>
+            </div>
+          </div>
+          <div class="india-perk sr d3">
+            <div class="perk-icon" style="background:rgba(251,191,36,.1);">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#FBBF24" stroke-width="1.8"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </div>
+            <div>
+              <div class="perk-title">No Long-Term Lock-ins</div>
+              <div class="perk-desc">Month-to-month contracts. We earn your business every single month — or you walk. That's how confident we are.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="sr-r">
+        <div class="city-card">
+          <div style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:13px;color:var(--muted2);letter-spacing:.5px;">Our Presence Across India</div>
+          <div class="city-grid">
+            <div class="city-item">
+              <div class="city-name"><span class="city-dot" style="--green-dot:#EC4899;"></span>Mumbai</div>
+              <div class="city-sub">HQ · Creative Studio</div>
+            </div>
+            <div class="city-item">
+              <div class="city-name"><span class="city-dot" style="--green-dot:#8B5CF6;"></span>Delhi / NCR</div>
+              <div class="city-sub">Brand Strategy Team</div>
+            </div>
+            <div class="city-item">
+              <div class="city-name"><span class="city-dot" style="--green-dot:#06B6D4;"></span>Bangalore</div>
+              <div class="city-sub">Tech & D2C Division</div>
+            </div>
+            <div class="city-item">
+              <div class="city-name"><span class="city-dot" style="--green-dot:#FBBF24;"></span>Hyderabad</div>
+              <div class="city-sub">South India Operations</div>
+            </div>
+            <div class="city-item">
+              <div class="city-name"><span class="city-dot" style="--green-dot:#22c55e;"></span>Pune</div>
+              <div class="city-sub">Content Production</div>
+            </div>
+            <div class="city-item">
+              <div class="city-name"><span class="city-dot" style="--green-dot:#f97316;"></span>Chennai</div>
+              <div class="city-sub">Regional Content Hub</div>
+            </div>
+          </div>
+          <div style="margin-top:20px;padding:16px;background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:12px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+            <div style="text-align:center;">
+              <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:20px;color:var(--pink);">50+</div>
+              <div style="font-size:11px;color:var(--muted);font-weight:600;">Team Members</div>
+            </div>
+            <div style="text-align:center;">
+              <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:20px;color:var(--cyan);">6</div>
+              <div style="font-size:11px;color:var(--muted);font-weight:600;">Cities</div>
+            </div>
+            <div style="text-align:center;">
+              <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:20px;color:var(--purple);">5★</div>
+              <div style="font-size:11px;color:var(--muted);font-weight:600;">Avg Rating</div>
+            </div>
+            <div style="text-align:center;">
+              <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:20px;color:var(--yellow);">4yr</div>
+              <div style="font-size:11px;color:var(--muted);font-weight:600;">In Business</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BAND -->
+<section class="cta-band" id="contact">
+  <div class="cta-mesh1"></div>
+  <div class="cta-mesh2"></div>
+  <div class="cta-inner">
+    <h2 class="cta-title sr">
+      Ready to Go<br>
+      <span style="background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Viral?</span>
+    </h2>
+    <p class="cta-sub sr d2">Book a free 30-minute strategy call. We'll audit your current social presence and show you exactly what's holding you back — no fluff, no pitch deck.</p>
+    <div class="sr d3">
+      <a href="mailto:hello@vibedigital.in" class="btn-grad ripple-btn" style="font-size:16px;padding:17px 44px;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        Book Your Free Audit
+      </a>
+    </div>
+    <div class="cta-contact-strip sr d4">
+      <div class="cta-contact-item">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        <a href="mailto:hello@vibedigital.in">hello@vibedigital.in</a>
+      </div>
+      <div class="cta-contact-item">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.67 19.79 19.79 0 01.03 1.11 2 2 0 012 .03h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        <a href="tel:+919876543210">+91 98765 43210</a>
+      </div>
+      <div class="cta-contact-item">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        Andheri West, Mumbai — 400053
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="f-logo"><span>VIBE</span>.</div>
+        <p class="f-desc">India's most creative social media growth agency. Based in Mumbai. Delivering results across 6 cities and 500+ brands.</p>
+        <div class="f-social">
+          <div class="f-soc-btn" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></div>
+          <div class="f-soc-btn" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="none"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></div>
+          <div class="f-soc-btn" aria-label="Twitter"><svg viewBox="0 0 24 24" fill="none"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.7 5.5 4.3 9 4.5-.6-2.8 1.2-5.5 4-5.5z"/></svg></div>
+          <div class="f-soc-btn" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="none"><path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 001.46 6.42 29 29 0 001 12a29 29 0 00.46 5.58A2.78 2.78 0 003.41 19.6C5.12 20.06 12 20.06 12 20.06s6.88 0 8.59-.46a2.78 2.78 0 001.95-1.95A29 29 0 0023 12a29 29 0 00-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg></div>
+        </div>
+      </div>
+      <div>
+        <div class="f-col-title">Services</div>
+        <ul class="f-links"><li><a href="#services">Content Production</a></li><li><a href="#services">Community Management</a></li><li><a href="#services">Growth Strategy</a></li><li><a href="#services">Influencer Marketing</a></li><li><a href="#services">Paid Social Ads</a></li></ul>
+      </div>
+      <div>
+        <div class="f-col-title">Company</div>
+        <ul class="f-links"><li><a href="#about">About VIBE.</a></li><li><a href="#work">Our Work</a></li><li><a href="#results">Case Studies</a></li><li><a href="#">Careers</a></li><li><a href="#">Blog</a></li></ul>
+      </div>
+      <div>
+        <div class="f-col-title">Connect</div>
+        <ul class="f-links"><li><a href="mailto:hello@vibedigital.in">hello@vibedigital.in</a></li><li><a href="tel:+919876543210">+91 98765 43210</a></li><li><a href="#">Book a Call</a></li><li><a href="#">Client Login</a></li><li><a href="#">Privacy Policy</a></li></ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 VIBE Digital Pvt. Ltd. · CIN: U74999MH2022PTC123456 · Andheri West, Mumbai 400053</span>
+      <div class="f-legal"><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Cookies</a></div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ── Custom cursor ─────────────────────────────────────────
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursor-ring');
+let cx = 0, cy = 0, rx = 0, ry = 0;
+
+document.addEventListener('mousemove', e => {
+  cx = e.clientX; cy = e.clientY;
+  cursor.style.left = cx + 'px'; cursor.style.top = cy + 'px';
+});
+(function animRing() {
+  rx += (cx - rx) * 0.12; ry += (cy - ry) * 0.12;
+  ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+  requestAnimationFrame(animRing);
+})();
+document.querySelectorAll('a,button,.service-card,.work-card,.plat-card,.testi-card,.result-card,.india-perk').forEach(el => {
+  el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
+  el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
+});
+
+// ── Scroll progress ──────────────────────────────────────
+const prog = document.getElementById('prog');
+window.addEventListener('scroll', () => {
+  const scrollTop = document.documentElement.scrollTop;
+  const docH = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+  prog.style.width = (scrollTop / docH * 100) + '%';
+  // Navbar
+  document.getElementById('nav').classList.toggle('scrolled', scrollTop > 60);
+});
+
+// ── Scroll reveal ─────────────────────────────────────────
+const srObs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.sr,.sr-l,.sr-r,.sr-s').forEach(el => srObs.observe(el));
+
+// ── Animated counters ─────────────────────────────────────
+const cntObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    const el = e.target;
+    const target = parseFloat(el.dataset.count);
+    const suffix = el.dataset.suffix || '';
+    const dec = parseInt(el.dataset.decimal) || 0;
+    const dur = 2000;
+    const start = performance.now();
+    function step(now) {
+      const p = Math.min((now - start) / dur, 1);
+      const ease = 1 - Math.pow(1 - p, 4);
+      el.textContent = (target * ease).toFixed(dec) + suffix;
+      if (p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+    cntObs.unobserve(el);
+  });
+}, { threshold: .5 });
+document.querySelectorAll('[data-count]').forEach(el => cntObs.observe(el));
+
+// ── Ripple ────────────────────────────────────────────────
+document.querySelectorAll('.ripple-btn').forEach(btn => {
+  btn.addEventListener('click', function(e) {
+    const r = this.getBoundingClientRect();
+    const rpl = document.createElement('div');
+    rpl.className = 'ripple-wave';
+    const sz = Math.max(r.width, r.height) * 2;
+    rpl.style.cssText = `width:${sz}px;height:${sz}px;left:${e.clientX - r.left - sz/2}px;top:${e.clientY - r.top - sz/2}px;`;
+    this.appendChild(rpl);
+    setTimeout(() => rpl.remove(), 700);
+  });
+});
+
+// ── Work filter ───────────────────────────────────────────
+function filterWork(btn, cat) {
+  document.querySelectorAll('.wf-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.work-card').forEach(card => {
+    const show = cat === 'all' || card.dataset.cat === cat;
+    card.style.opacity = show ? '1' : '0.25';
+    card.style.transform = show ? '' : 'scale(0.96)';
+    card.style.transition = 'opacity .3s,transform .3s';
+  });
+}
+
+// ── Mobile menu ───────────────────────────────────────────
+let mOpen = false;
+function toggleMenu() {
+  const links = document.getElementById('nav-links');
+  mOpen = !mOpen;
+  if (mOpen) {
+    links.style.display = 'flex'; links.style.flexDirection = 'column';
+    links.style.position = 'absolute'; links.style.top = '72px';
+    links.style.left = '0'; links.style.right = '0';
+    links.style.background = 'rgba(7,7,13,0.97)';
+    links.style.padding = '20px 28px 28px';
+    links.style.gap = '18px'; links.style.zIndex = '299';
+    links.style.borderBottom = '1px solid rgba(255,255,255,0.08)';
+    links.style.backdropFilter = 'blur(20px)';
+  } else {
+    links.style.display = 'none';
+  }
+}
+
+// ── Marquee clone for seamless loop ──────────────────────
+const track = document.getElementById('marquee-track');
+track.innerHTML += track.innerHTML;
+</script>
+
+</body>
+</html>
